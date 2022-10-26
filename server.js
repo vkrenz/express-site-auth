@@ -50,7 +50,7 @@ app.engine('hbs', hbs.engine({
 }))
 
 // Render index.hbs (main route)
-app.get('/', (req, res) => res.render('index', { layout : false }))
+app.get('/', (req, res) => res.redirect('user'))
 
 // Define PORT
 const PORT = process.env.PORT || 8080
