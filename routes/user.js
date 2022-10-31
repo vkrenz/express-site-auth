@@ -1,9 +1,9 @@
 /**
  * @file user.js
  * @desc Router which handles: 
- * -> user registration
- * -> user login
- * -> user dashboard
+ * => user registration
+ * => user login
+ * => user dashboard
  */
 
 const router = require('express').Router()
@@ -27,75 +27,81 @@ const mongoose = require('mongoose')
 mongoose.connect("mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mongodb.net/web322")
 
 // MongoDB - Define User Schema
-const Schema = mongoose.Schema
-const userSchema = new Schema({
-  "createdAt": {
-    "type": Date,
-    "default": new Date().toLocaleString(),
-  },
-  "userType": {
-    "type": String,
-    "default": "user"
-  },
-  "username": {
-    "type": String,
-    "required": true,
-    "unique": true
-  },
-  "email": {
-    "type": String,
-    "required": true,
-    "unique": true
-  },
-  "password": {
-    "type": String,
-    "required": true
-  },
-  "fullName": {
-    "type": String,
-    "required": true
-  },
-  "pfpURL": {
-    "type": String,
-    "default": "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
-  },
-  "phoneNumber": String, 
-  "companyName": {
-    "type": String,
-    "required": true
-  },
-  "country": String,
-  "city": String,
-  "postalCode": String
-})
-
-const User = mongoose.model("web322_users", userSchema)
-
-// Create admin user
-if(!User.findOne({username: "admin-vkrenzel"}).exec()){
-    console.log("Admin User not found! Creating one...")
-    const adminUser = new User({
-        userType: "admin",
-        username: "admin-vkrenzel",
-        email: "vkrenzel@outlook.com",
-        password: "admin",
-        fullName: "Victor Krenzel",
-        phoneNumber: "1112223333",
-        companyName: "Seneca College",
-        country: "Canada",
-        city: "Toronto",
-        postalCode: "M2M 1G1"
-    }).save().then(() => {
-        console.log("Admin User Created!")
+const User = mongoose.model("Users", new mongoose.Schema({
+    "userID": {
+        "type": Number,
+        "unique": true,
+        "default": 1
+    },
+    "createdAt": {
+        "type": Date,
+        "default": new Date().toLocaleString(),
+    },
+    "userType": {
+        "type": String,
+        "default": "user"
+    },
+    "username": {
+        "type": String,
+        "required": true,
+        "unique": true
+    },
+    "email": {
+        "type": String,
+        "required": true,
+        "unique": true
+    },
+    "password": {
+        "type": String,
+        "required": true
+    },
+    "fullName": {
+        "type": String,
+        "required": true
+    },
+    "pfpURL": {
+        "type": String,
+        "default": "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
+    },
+    "phoneNumber": String, 
+    "companyName": {
+        "type": String,
+        "required": true
+    },
+    "country": String,
+    "city": String,
+    "postalCode": String
     })
-} else {
-    console.log("Admin User Already Exists")
-    console.log(User.findOne({username: "admin-vkrenzel"}).exec())
-}
+)
+
+User.exists({username: "admin-vkrenzel"}, (err, res) => {
+    if(err) {
+        console.log(err)
+    } else {
+        console.log(res)
+        if(!res) {
+            // Create admin user
+            console.log("Admin User not found! Creating one...")
+            const adminUser = new User({
+                userType: "admin",
+                username: "admin-vkrenzel",
+                email: "vkrenzel@outlook.com",
+                password: "admin",
+                fullName: "Victor Krenzel",
+                phoneNumber: "1112223333",
+                companyName: "Seneca College",
+                country: "Canada",
+                city: "Toronto",
+                postalCode: "M2M 1G1"
+            }).save().then(() => {
+                console.log("Admin User Created!")
+            })
+        }
+    }
+})
 
 // Express Validator
 const { check, validationResult } = require('express-validator')
-const e = require('express')
 
 router.get('/', (req, res) => {
     res.redirect('/user/login')
@@ -119,46 +125,59 @@ router.post('/auth/register', [
     check('confirm_password', 'Passwords do not match').equals('password')
 ], (req, res) => {
     const errors = validationResult(req)
-    if (!errors.isEmpty() || User.exists({username: req.body.username})) {
+    const { username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
+    req.session.user = req.body
+    if (!errors.isEmpty()) {
         console.log(errors)
         const err = errors.array()
-        if(User.exists({username: req.body.username})) {
-            const userTaken = "User already taken"
-            res.render('register', {
-                layout: false,
-                userTaken: userTaken
-            })
-        } else {
-            res.render('register', {
-                layout: false,
-                err: err
-            })
-        }
-    } else {
-        const { username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
-        req.session.user = req.body
-        // Create a new user in mongoDB web322
-        if(!User.findOne({username: username}).exec()) {
-            new User({
-                username: username,
-                email: email,
-                password: password,
-                fullName: fullName,
-                pfpURL: pfpURL,
-                phoneNumber: phoneNumber,
-                companyName: companyName,
-                country: country,
-                city: city
-            }).save().then(() => {
-                console.log(`New User (${username})`)
-            }).catch(err => {
-                console.log(`Error: ${err}`)
-            })
-            // Redirect to the dashboard
-            res.redirect(`/dash/${username}`)
-        }
+        res.render('register', {
+            layout: false,
+            err: err
+        })
+    }else if(errors.isEmpty()) {
+        // Validate username
+        User.exists({username: username}, (err, user) => {
+            if(err) {
+                console.log(err)
+                res.render('register', {
+                    layout: false,
+                    err: err
+                })      
+            }else{
+                console.log(`${username} already exists bro`)
+                const userTaken = `${username} is already taken`
+                console.log(user)
+                res.render('register', {
+                    layout: false,
+                    userTaken: userTaken
+                })          
+            }
+        })
+    }else{
+        console.log(`${username} does not exist. Creating new user...`)
+        createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city)
+        // Redirect to the dashboard
+        res.redirect(`/dash/${username}`)
     }
 })
+
+const createUser = (username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city) => {
+    User.create({
+        username: username,
+        email: email,
+        password: password,
+        fullName: fullName,
+        pfpURL: pfpURL,
+        phoneNumber: phoneNumber,
+        companyName: companyName,
+        country: country,
+        city: city
+    }).save().then(() => {
+        console.log(`New User (${username})`)
+    }).catch(err => {
+        console.log(`Error: ${err}`)
+    })
+}
 
 router.get('/login', (req, res) => {
     res.render('login', { layout: false })
