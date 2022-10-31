@@ -1,9 +1,11 @@
 /**
  * @file user.js
  * @desc Router which handles: 
- * => user registration
- * => user login
- * => user dashboard
+ * ==> user registration
+ * ==> user login
+ * ==> user dashboard
+ * 
+ * @date Halloween 2022 🎃
  */
 
 const router = require('express').Router()
@@ -109,10 +111,10 @@ router.get('/register', (req, res) => {
 /**
  * @function ROUTER-POST-REGISTER
  * @desc "localhost:8080/user/auth/register"
- * => Validates user input,
- * => Checks if a user exists in mongoDB,
- * => Creates a new user in mongoDB collection
- * => Redirects to user dashboard @see /dash/:username
+ * ==> Validates user input,
+ * ==> Checks if a user exists in mongoDB,
+ * ==> Creates a new user in mongoDB collection
+ * ==> Redirects to user dashboard @see /dash/:username
  */
 
 router.post('/auth/register', [
@@ -198,9 +200,9 @@ router.get('/login', (req, res) => {
 /**
  * @function ROUTER-POST-LOGIN
  * @desc "localhost:8080/user/auth/login"
- * => Validates user input,
- * => Checks if a user exists in mongoDB
- * => Redirects to user dashboard @see /user/:username
+ * ==> Validates user input,
+ * ==> Checks if a user exists in mongoDB
+ * ==> Redirects to user dashboard @see /user/:username
  */
 
 router.post('/auth/login', [
@@ -234,22 +236,38 @@ router.post('/auth/login', [
     }
 })
 
-// Dashboard Route
+/**
+ * @function ROUTER-GET-USER-DASHBOARD
+ * @desc 'localhost:/user/dash/username'
+ * ==> Check if user exists in mongoDB
+ * ==> Render a user-specific dashboard page
+ */
+
 router.get('/dash/:username', (req, res) => {
     const { username } = req.params
-    const { email, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode } = req.session.user
-    res.render('dash', { 
-        layout: false ,
-        username: username,
-        email: email,
-        fullName: fullName,
-        pfpURL: pfpURL,
-        phoneNumber: phoneNumber,
-        companyName: companyName,
-        country: country,
-        city: city,
-        postalCode: postalCode
+    User.exists({username: username}, (err, user) => {
+        if(err) {
+            console.log(err)
+            res.send(err, ':(')
+        }else if(user == null){
+            res.send(`Error: User ${username} doesn't exist :((`)
+        }else{
+            res.send(`Hello, ${username}! Welcome to your dashboard :D`)
+        }
     })
+    // const { email, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode } = req.session.user
+    // res.render('dash', { 
+    //     layout: false ,
+    //     username: username,
+    //     email: email,
+    //     fullName: fullName,
+    //     pfpURL: pfpURL,
+    //     phoneNumber: phoneNumber,
+    //     companyName: companyName,
+    //     country: country,
+    //     city: city,
+    //     postalCode: postalCode
+    // })
 })
 
 // const findUser = (email, password) => users.some(user => user.email === email && user.password === password)

@@ -1,10 +1,9 @@
 /**
-** @author Victor Krenzel
+** @author Victor Krenzel (stu#)
 ** @file server.js
-** @date 10.26.2022
 ** @desc WEB 322 Assignment
 **
-** @see './views/partials'
+** @date Halloween 2022 🎃
 */
 
 const express = require('express')
