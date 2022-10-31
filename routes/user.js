@@ -27,6 +27,7 @@ router.use(session({
 const { mongoClient } = require('mongodb')
 const mongoose = require('mongoose')
 mongoose.connect("mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mongodb.net/web322")
+const defaultPFPURL = "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
 
 // MongoDB - Define User Schema
 const User = mongoose.model("Users", new mongoose.Schema({
@@ -46,7 +47,6 @@ const User = mongoose.model("Users", new mongoose.Schema({
     "email": {
         "type": String,
         "required": true,
-        "unique": true
     },
     "password": {
         "type": String,
@@ -58,7 +58,7 @@ const User = mongoose.model("Users", new mongoose.Schema({
     },
     "pfpURL": {
         "type": String,
-        "default": "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
+        "default": defaultPFPURL
     },
     "phoneNumber": String, 
     "companyName": {
@@ -114,14 +114,14 @@ router.get('/register', (req, res) => {
  * ==> Validates user input,
  * ==> Checks if a user exists in mongoDB,
  * ==> Creates a new user in mongoDB collection
- * ==> Redirects to user dashboard @see /dash/:username
+ * ==> Redirects to user dashboard @see /user/dash/:username
  */
 
 router.post('/auth/register', [
     // Validation Rules
-    check('username', 'Username must be 3-12 characters').isLength({ min: 3, max: 12 }),
+    check('username', 'Username must be minimum 3 characters').isLength({ min: 3}),
     check('email', 'Email is invalid').isEmail().normalizeEmail(),
-    check('password', 'Password must be 5-12 characters').isLength({ min : 5, max: 12 }),
+    check('password', 'Password must be minimum 5 characters').isLength({ min : 5}),
     check('confirm_password', 'Passwords do not match').equals('password')
 ], (req, res) => {
     const errors = validationResult(req)
@@ -130,25 +130,25 @@ router.post('/auth/register', [
     if (!errors.isEmpty()) {
         console.log(errors)
         const err = errors.array()
-        renderRegisterPage(err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
+        renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
     }else{
         // Validate username
         User.exists({username: username}, (err, user) => {
             if(err) {
                 console.log(err)
-                renderRegisterPage(err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
+                renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
             }else{
                 if(user != null) {
                     console.log(`${username} already exists bro`)
                     const userTaken = `${username} is already taken`
                     console.log(user)
-                    renderRegisterPage(err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
+                    renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
                 }else{
                     console.log(`${username} does not exist. Creating new user...`)
                     createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
                     console.log(user)
                     // Redirect to the dashboard
-                    res.redirect(`/dash/${username}`)
+                    res.redirect(`/user/dash/${username}`)
                     console.log(user)  
                 }
             }
@@ -162,7 +162,7 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
         email: email,
         password: password,
         fullName: fullName,
-        pfpURL: pfpURL ? null : pfpURL,
+        pfpURL: pfpURL == "" ? defaultPFPURL : pfpURL,
         phoneNumber: phoneNumber,
         companyName: companyName,
         country: country,
@@ -175,7 +175,7 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
     })
 }
 
-const renderRegisterPage = (err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+const renderRegisterPage = (res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
     res.render('register', {
         layout: false,
         err: err,
@@ -202,13 +202,13 @@ router.get('/login', (req, res) => {
  * @desc "localhost:8080/user/auth/login"
  * ==> Validates user input,
  * ==> Checks if a user exists in mongoDB
- * ==> Redirects to user dashboard @see /user/:username
+ * ==> Redirects to user dashboard @see /user/dash/:username
  */
 
 router.post('/auth/login', [
     // Validation Rules
-    check('username', 'Username must be minimum 3-12 characters').isLength({ min: 3, max: 12}),
-    check('password', 'Password must be 5-12 characters long').isLength({ min: 5, max: 12}),
+    check('username', 'Username must be minimum 3-12 characters').isLength({ min: 3}),
+    check('password', 'Password must be 5-12 characters long').isLength({ min: 5}),
 ], (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty() || !User.exists({username: req.body.username})) {
@@ -231,7 +231,7 @@ router.post('/auth/login', [
         const { username, password } = req.body
         console.log(User.exists({username: username}) ? "User found!" : "User not found :(")
         if(User.exists({username: username})) {
-            res.redirect(`/dash/${username}`)
+            res.redirect(`/user/dash/${username}`)
         }
     }
 })
@@ -252,22 +252,31 @@ router.get('/dash/:username', (req, res) => {
         }else if(user == null){
             res.send(`Error: User ${username} doesn't exist :((`)
         }else{
-            res.send(`Hello, ${username}! Welcome to your dashboard :D`)
+            User.findOne({username: username}, (err, user) => {
+                if(err) {
+                    console.log(err)
+                    res.render('dash', {
+                        layout: false,
+                        err: err
+                    })
+                }else{
+                    res.render('dash', { 
+                        layout: false ,
+                        username: user.username,
+                        email: user.email,
+                        fullName: user.fullName,
+                        pfpURL: user.pfpURL,
+                        phoneNumber: user.phoneNumber,
+                        companyName: user.companyName,
+                        country: user.country,
+                        city: user.city,
+                        postalCode: user.postalCode
+                    })
+                }
+            })
         }
     })
     // const { email, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode } = req.session.user
-    // res.render('dash', { 
-    //     layout: false ,
-    //     username: username,
-    //     email: email,
-    //     fullName: fullName,
-    //     pfpURL: pfpURL,
-    //     phoneNumber: phoneNumber,
-    //     companyName: companyName,
-    //     country: country,
-    //     city: city,
-    //     postalCode: postalCode
-    // })
 })
 
 // const findUser = (email, password) => users.some(user => user.email === email && user.password === password)

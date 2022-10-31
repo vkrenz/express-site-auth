@@ -10,21 +10,19 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container mt-4" align="center">
         {{#if username}}
-            <p class="text-muted">Hello, <strong class="text-primary">{{username}}</strong></p>
-            <p class="text-muted">You are a: {{userType}}</p>
-            <p class="text-muted">Email: {{email}}</p>
-            <p class="text-muted">Phone Number: {{phoneNumber}}</p>
-            <p class="text-muted">Company: {{companyName}}</p>
-            <p class="text-muted">Located In: {{city}}, {{country}}</p>
-            <button type="button" class="btn btn-primary">Log Out</button>
+            <img src="{{pfpURL}}" class="rounded-circle mb-3" alt="{{username}}'s profile picture" width="200px" height="200px">
+            <p class="text-muted">Hello, <strong class="text-primary">{{username}}</strong> Welcome to your dashboard!</p>
+            <p class="text-muted">Email: <strong class="text-danger">{{email}}</strong></p>
+            {{#if phoneNumber}}<p class="text-muted">Phone Number: <strong class="text-danger">{{phoneNumber}}</strong></p>{{/if}}
+            <p class="text-muted">Company: <strong class="text-danger">{{companyName}}</strong></p>
+            <p class="text-muted">Located In: <strong class="text-danger">{{city}}, {{country}}</strong></p>
         {{/if}}
         {{#else}}
             <p class="text-muted">Bro, who are u?</p>
         {{/else}}
-        <button class="button-primary"></button>
-        <button  class="btn btn-primary btn-block my-5">Log Out</button>
+        <a href="/user/login"><button class="btn btn-primary btn-block my-5">Log Out</button></button></a>
     </div>
     
 </body>
