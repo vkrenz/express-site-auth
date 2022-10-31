@@ -73,6 +73,12 @@ body {
                 </div> 
             {{/each}}
         {{/if}}
+        {{#if couldNotFindUser}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error:</strong> {{couldNotFindUser}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> 
+        {{/if}}
         <form action="/user/auth/login" method="post" class="form-signin">
             <h2 class="text-center text-muted m-3">LOGIN</h2>
             <div class="mb-3">

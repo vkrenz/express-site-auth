@@ -15,11 +15,6 @@
     </nav>
     <div class="container mt-4 w-50 text-muted">
         <div class="col-md-12">
-
-            {{#if email}}
-                <p>Hello, {{email}}</p>
-            {{/if}}
-
             {{#if err}}
                 {{#each err}}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -28,7 +23,12 @@
                     </div> 
                 {{/each}}
             {{/if}}
-          
+            {{#if userTaken}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error:</strong> Username is already taken
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> 
+            {{/if}}
             <form method="post" action="/user/auth/register" onsubmit="console.log(`Email: ${req.body.email}`)">
                 <p class="text-muted">(<span class=required></span> = required)</p>
                 <div class="row">

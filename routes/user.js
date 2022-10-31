@@ -37,16 +37,33 @@ const userSchema = new Schema({
     "type": String,
     "default": "user"
   },
-  "username": String,
-  "email": String,
-  "password": String,
-  "fullName": String,
+  "username": {
+    "type": String,
+    "required": true,
+    "unique": true
+  },
+  "email": {
+    "type": String,
+    "required": true,
+    "unique": true
+  },
+  "password": {
+    "type": String,
+    "required": true
+  },
+  "fullName": {
+    "type": String,
+    "required": true
+  },
   "pfpURL": {
     "type": String,
     "default": "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
   },
   "phoneNumber": String, 
-  "companyName": String,
+  "companyName": {
+    "type": String,
+    "required": true
+  },
   "country": String,
   "city": String,
   "postalCode": String
@@ -55,7 +72,8 @@ const userSchema = new Schema({
 const User = mongoose.model("web322_users", userSchema)
 
 // Create admin user
-if(!User.exists({username: "admin-vkrenzel"})){
+if(!User.findOne({username: "admin-vkrenzel"}).exec()){
+    console.log("Admin User not found! Creating one...")
     const adminUser = new User({
         userType: "admin",
         username: "admin-vkrenzel",
@@ -72,34 +90,19 @@ if(!User.exists({username: "admin-vkrenzel"})){
     })
 } else {
     console.log("Admin User Already Exists")
+    console.log(User.findOne({username: "admin-vkrenzel"}).exec())
 }
 
 // Express Validator
 const { check, validationResult } = require('express-validator')
+const e = require('express')
 
-/**
- * @function PostLogin
- */
-// url '/user/auth/login' (post/login)
-router.post('/auth/login', [
-    // Validation Rules
-    check('username', 'Username must be minimum 3-12 characters').isLength({ min: 3, max: 12}),
-    // Password must be at least 5 characters...
-    check('password', 'Password must be 5-12 characters long').isLength({ min: 5, max: 12}),
-], (req, res) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        // return res.status(422).jsonp(errors.array())
-        console.log(errors)
-        const err = errors.array()
-        res.render('login', {
-            layout: false,
-            err: err,
-        })
-    } else {
-        const { username, password } = req.body
-        console.log(User.findOne({username: username, password: password}) ? "User Found!" : "User Not Found :(")
-    }
+router.get('/', (req, res) => {
+    res.redirect('/user/login')
+})
+
+router.get('/register', (req, res) => {
+    res.render('register', { layout: false })
 })
 
 /**
@@ -116,53 +119,89 @@ router.post('/auth/register', [
     check('confirm_password', 'Passwords do not match').equals('password')
 ], (req, res) => {
     const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        // return res.status(422).jsonp(errors.array())
+    if (!errors.isEmpty() || User.exists({username: req.body.username})) {
         console.log(errors)
         const err = errors.array()
-        res.render('register', {
-            layout: false,
-            err: err,
-        })
+        if(User.exists({username: req.body.username})) {
+            const userTaken = "User already taken"
+            res.render('register', {
+                layout: false,
+                userTaken: userTaken
+            })
+        } else {
+            res.render('register', {
+                layout: false,
+                err: err
+            })
+        }
     } else {
         const { username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
         req.session.user = req.body
         // Create a new user in mongoDB web322
-        new User({
-            username: username,
-            email: email,
-            password: password,
-            fullName: fullName,
-            pfpURL: pfpURL,
-            phoneNumber: phoneNumber,
-            companyName: companyName,
-            country: country,
-            city: city
-        }).save().then(() => {
-            console.log(`New User (${username})`)
-        }).catch(err => {
-            console.log(`Error: ${err}`)
-        })
-        // Redirect to the dashboard
-        res.redirect(`/dash/:${username}`)
+        if(!User.findOne({username: username}).exec()) {
+            new User({
+                username: username,
+                email: email,
+                password: password,
+                fullName: fullName,
+                pfpURL: pfpURL,
+                phoneNumber: phoneNumber,
+                companyName: companyName,
+                country: country,
+                city: city
+            }).save().then(() => {
+                console.log(`New User (${username})`)
+            }).catch(err => {
+                console.log(`Error: ${err}`)
+            })
+            // Redirect to the dashboard
+            res.redirect(`/dash/${username}`)
+        }
     }
-})
-
-
-router.get('/', (req, res) => {
-    res.redirect('/user/login')
-})
-
-router.get('/register', (req, res) => {
-    res.render('register', { layout: false })
 })
 
 router.get('/login', (req, res) => {
     res.render('login', { layout: false })
 })
 
+/**
+ * @function PostLogin
+ */
+// url '/user/auth/login' (post/login)
+router.post('/auth/login', [
+    // Validation Rules
+    check('username', 'Username must be minimum 3-12 characters').isLength({ min: 3, max: 12}),
+    // Password must be at least 5 characters...
+    check('password', 'Password must be 5-12 characters long').isLength({ min: 5, max: 12}),
+], (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty() || !User.exists({username: req.body.username})) {
+        // return res.status(422).jsonp(errors.array())
+        console.log(errors)
+        const err = errors.array()
+        if(!User.exists({username: req.body.username})) {
+            couldNotFindUser = "Could not find user"
+            res.render('login', {
+                layout: false,
+                couldNotFindUser: couldNotFindUser
+            })
+        } else {
+            res.render('login', {
+                layout: false,
+                err: err,
+            })
+        }
+    } else {
+        const { username, password } = req.body
+        console.log(User.exists({username: username}) ? "User found!" : "User not found :(")
+        if(User.exists({username: username})) {
+            res.redirect(`/dash/${username}`)
+        }
+    }
+})
+
 // Dashboard Route
-router.get('/dash/:username/', (req, res) => {
+router.get('/dash/:username', (req, res) => {
     const { username } = req.params
     const { email, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode } = req.session.user
     res.render('dash', { 
