@@ -28,11 +28,6 @@ mongoose.connect("mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mo
 
 // MongoDB - Define User Schema
 const User = mongoose.model("Users", new mongoose.Schema({
-    "userID": {
-        "type": Number,
-        "unique": true,
-        "default": 1
-    },
     "createdAt": {
         "type": Date,
         "default": new Date().toLocaleString(),
@@ -133,63 +128,26 @@ router.post('/auth/register', [
     if (!errors.isEmpty()) {
         console.log(errors)
         const err = errors.array()
-        res.render('register', {
-            layout: false,
-            err: err,
-            username: username,
-            email: email,
-            password: password,
-            confirm_password: confirm_password,
-            fullName: fullName,
-            pfpURL: pfpURL,
-            phoneNumber: phoneNumber,
-            companyName: companyName,
-            country: country,
-            postalCode: postalCode
-        })
+        renderRegisterPage(err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
     }else{
         // Validate username
         User.exists({username: username}, (err, user) => {
             if(err) {
                 console.log(err)
-                res.render('register', {
-                    layout: false,
-                    err: err,
-                    username: username,
-                    email: email,
-                    password: password,
-                    confirm_password: confirm_password,
-                    fullName: fullName,
-                    pfpURL: pfpURL,
-                    phoneNumber: phoneNumber,
-                    companyName: companyName,
-                    country: country,
-                    postalCode: postalCode
-                })      
+                renderRegisterPage(err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
             }else{
                 if(user != null) {
                     console.log(`${username} already exists bro`)
                     const userTaken = `${username} is already taken`
                     console.log(user)
-                    res.render('register', {
-                        layout: false,
-                        err: err,
-                        username: username,
-                        email: email,
-                        password: password,
-                        confirm_password: confirm_password,
-                        fullName: fullName,
-                        pfpURL: pfpURL,
-                        phoneNumber: phoneNumber,
-                        companyName: companyName,
-                        country: country,
-                        postalCode: postalCode
-                    })          
+                    renderRegisterPage(err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
                 }else{
                     console.log(`${username} does not exist. Creating new user...`)
                     createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
+                    console.log(user)
                     // Redirect to the dashboard
-                    res.redirect(`/dash/${username}`)  
+                    res.redirect(`/dash/${username}`)
+                    console.log(user)  
                 }
             }
         })
@@ -202,7 +160,7 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
         email: email,
         password: password,
         fullName: fullName,
-        pfpURL: pfpURL,
+        pfpURL: pfpURL ? null : pfpURL,
         phoneNumber: phoneNumber,
         companyName: companyName,
         country: country,
@@ -212,6 +170,24 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
         console.log(`New User (${username})`)
     }).catch(err => {
         console.log(`Error: ${err}`)
+    })
+}
+
+const renderRegisterPage = (err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+    res.render('register', {
+        layout: false,
+        err: err,
+        username: username,
+        email: email,
+        password: password,
+        confirm_password: confirm_password,
+        fullName: fullName,
+        pfpURL: pfpURL,
+        phoneNumber: phoneNumber,
+        companyName: companyName,
+        country: country,
+        city: city,
+        postalCode: postalCode
     })
 }
 
