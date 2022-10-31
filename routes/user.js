@@ -117,11 +117,9 @@ router.get('/register', (req, res) => {
 // url '/user/auth/register' (post/register)
 router.post('/auth/register', [
     // Validation Rules
-    check('username', 'Username must be minimum 3 characters').isLength({ min: 3 }),
+    check('username', 'Username must be 3-12 characters').isLength({ min: 3, max: 12 }),
     check('email', 'Email is invalid').isEmail().normalizeEmail(),
-    // Password must be at least 5 characters...
-    check('password', 'Password must be 5 characters long').isLength({ min : 5 }),
-    // Check if 'confirm_password' matches 'password' (or req.body.password)
+    check('password', 'Password must be 5-12 characters and include ').isLength({ min : 5, max: 12 }).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i").matches('confirm_password'),
     check('confirm_password', 'Passwords do not match').equals('password')
 ], (req, res) => {
     const errors = validationResult(req)
@@ -190,7 +188,6 @@ router.get('/login', (req, res) => {
 router.post('/auth/login', [
     // Validation Rules
     check('username', 'Username must be minimum 3-12 characters').isLength({ min: 3, max: 12}),
-    // Password must be at least 5 characters...
     check('password', 'Password must be 5-12 characters long').isLength({ min: 5, max: 12}),
 ], (req, res) => {
     const errors = validationResult(req)
