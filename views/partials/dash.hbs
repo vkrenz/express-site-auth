@@ -13,6 +13,12 @@
     <div class="container">
         {{#if username}}
             <p class="text-muted">Hello, <strong class="text-primary">{{username}}</strong></p>
+            <p class="text-muted">You are a: {{userType}}</p>
+            <p class="text-muted">Email: {{email}}</p>
+            <p class="text-muted">Phone Number: {{phoneNumber}}</p>
+            <p class="text-muted">Company: {{companyName}}</p>
+            <p class="text-muted">Located In: {{city}}, {{country}}</p>
+            <button type="button" class="btn btn-primary">Log Out</button>
         {{/if}}
         {{#else}}
             <p class="text-muted">Bro, who are u?</p>

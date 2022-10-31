@@ -9,7 +9,6 @@
 
 const express = require('express')
 const session = require('express-session')
-const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 // const multer = require('multer')
@@ -30,7 +29,6 @@ const user = require('./routes/user')
 app.use('/user', user)
 
 // Parser settings
-app.use(bodyParser.json())
 app.use(cors())
 app.use(cookieParser())
 app.use(session({
@@ -54,5 +52,6 @@ app.get('/', (req, res) => res.redirect('user'))
 
 // Define PORT
 const PORT = process.env.PORT || 8080
-const onStart = port => console.log(`Connected on localhost:${port}`)
+const date = new Date().toLocaleString()
+const onStart = port => console.log(`[${date}] Connected on localhost:${port}`)
 app.listen(PORT, onStart(PORT))
