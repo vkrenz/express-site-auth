@@ -17,31 +17,25 @@
         <div class="col-md-12">
             {{#if err}}
                 {{#each err}}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Error:</strong> {{this.msg}}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div> 
+                    <p class="text-danger"><strong>Error:</strong> {{this.msg}}</p>
                 {{/each}}
             {{/if}}
             {{#if userTaken}}
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error:</strong>{{userTaken}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
+                <p class="text-danger"><strong>Error:</strong> {{userTaken}}</p>
             {{/if}}
             <form method="post" action="/user/auth/register" onsubmit="console.log(`Email: ${req.body.email}`)">
                 <p class="text-muted">(<span class=required></span> = required)</p>
                 <div class="row">
                     <div class="col-4">
                         <label for="username" class="required">Username</label>
-                        <input type="text" class="form-control" name="username" required />                         
+                        <input type="text" class="form-control" name="username" value="{{#if username}}{{username}}{{/if}}" required />                         
                         <div class="invalid-feedback">
                         Please choose a username.
                         </div>
                     </div>
                     <div class="col-8">
                         <label for="fullName" class="required">Full Name</label>
-                        <input type="text" class="form-control" name="fullName" required />                         
+                        <input type="text" class="form-control" name="fullName" value="{{#if fullName}}{{fullName}}{{/if}}" required />                         
                         <div class="invalid-feedback">
                         Please enter your full name.
                         </div>
@@ -49,17 +43,17 @@
                 </div>
                 <div class="form-group my-2">
                     <label for="email" class="required">Email</label>
-                    <input type="email" class="form-control" name="email" required />
+                    <input type="email" class="form-control" name="email" value="{{#if email}}{{email}}{{/if}}" required />
                 </div>
                 <div class="form-group my-2">
                     <div class="row">
                         <div class="col-6">
                             <label for="password" class="required">Password</label>
-                            <input type="password" class="form-control" name="password" required />
+                            <input type="password" class="form-control" name="password" value="{{#if password}}{{password}}{{/if}}" required />
                         </div>
                         <div class="col-6">
                             <label for="confirm_password" class="required">Confirm Password</label>
-                            <input type="password" class="form-control" name="confirm_password"required />
+                            <input type="password" class="form-control" name="confirm_password" value="{{#if confirm_password}}{{confirm_password}}{{/if}}" required />
                         </div>
                     </div>
                 </div>
@@ -67,11 +61,11 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="phoneNumber">Phone Number</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" value="{{#if phoneNumber}}{{phoneNumber}}{{/if}}" />
                         </div>
                         <div class="col-6">
                             <label for="companyName" class="required">Company Name</label>
-                            <input type="text" name="companyName" id="companyName" class="form-control" required>
+                            <input type="text" name="companyName" id="companyName" class="form-control" value="{{#if companyName}}{{companyName}}{{/if}}" required />
                         </div>
                     </div>
                 </div>
@@ -79,15 +73,15 @@
                     <div class="row">
                         <div class="col-4">
                             <label for="country">Country</label>
-                            <input type="text" name="country" id="country" class="form-control">
+                            <input type="text" name="country" id="country" class="form-control" value="{{#if country}}{{country}}{{/if}}" />
                         </div>
                         <div class="col-4">
                             <label for="city">City</label>
-                            <input type="text" name="city" id="city" class="form-control">
+                            <input type="text" name="city" id="city" class="form-control" value="{{#if city}}{{city}}{{/if}}" />
                         </div>
                         <div class="col-4">
                             <label for="postalCode">Postal Code</label>
-                            <input type="text" name="postalCode" id="postalCode" class="form-control">
+                            <input type="text" name="postalCode" id="postalCode" class="form-control" value="{{#if postalCode}}{{postalCode}}{{/if}}" />
                         </div>
                     </div>
                 </div>

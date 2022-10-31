@@ -74,12 +74,12 @@ const User = mongoose.model("Users", new mongoose.Schema({
     })
 )
 
-User.exists({username: "admin-vkrenzel"}, (err, res) => {
+User.exists({username: "admin-vkrenzel"}, (err, user) => {
     if(err) {
         console.log(err)
     } else {
-        console.log(res)
-        if(!res) {
+        console.log(user)
+        if(!user) {
             // Create admin user
             console.log("Admin User not found! Creating one...")
             const adminUser = new User({
@@ -112,55 +112,92 @@ router.get('/register', (req, res) => {
 })
 
 /**
- * @function PostRegister
+ * @function ROUTER-POST-REGISTER
+ * @desc "localhost:8080/user/auth/register"
+ * => Validates user input,
+ * => Checks if a user exists in mongoDB,
+ * => Creates a new user in mongoDB collection
+ * => Redirects to user dashboard @see /dash/:username
  */
-// url '/user/auth/register' (post/register)
+
 router.post('/auth/register', [
     // Validation Rules
     check('username', 'Username must be 3-12 characters').isLength({ min: 3, max: 12 }),
     check('email', 'Email is invalid').isEmail().normalizeEmail(),
-    check('password', 'Password must be 5-12 characters and include ').isLength({ min : 5, max: 12 }).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i").matches('confirm_password'),
+    check('password', 'Password must be 5-12 characters').isLength({ min : 5, max: 12 }),
     check('confirm_password', 'Passwords do not match').equals('password')
 ], (req, res) => {
     const errors = validationResult(req)
-    const { username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
+    const { username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
     req.session.user = req.body
     if (!errors.isEmpty()) {
         console.log(errors)
         const err = errors.array()
         res.render('register', {
             layout: false,
-            err: err
+            err: err,
+            username: username,
+            email: email,
+            password: password,
+            confirm_password: confirm_password,
+            fullName: fullName,
+            pfpURL: pfpURL,
+            phoneNumber: phoneNumber,
+            companyName: companyName,
+            country: country,
+            postalCode: postalCode
         })
-    }else if(errors.isEmpty()) {
+    }else{
         // Validate username
         User.exists({username: username}, (err, user) => {
             if(err) {
                 console.log(err)
                 res.render('register', {
                     layout: false,
-                    err: err
+                    err: err,
+                    username: username,
+                    email: email,
+                    password: password,
+                    confirm_password: confirm_password,
+                    fullName: fullName,
+                    pfpURL: pfpURL,
+                    phoneNumber: phoneNumber,
+                    companyName: companyName,
+                    country: country,
+                    postalCode: postalCode
                 })      
             }else{
-                console.log(`${username} already exists bro`)
-                const userTaken = `${username} is already taken`
-                console.log(user)
-                res.render('register', {
-                    layout: false,
-                    userTaken: userTaken
-                })          
+                if(user != null) {
+                    console.log(`${username} already exists bro`)
+                    const userTaken = `${username} is already taken`
+                    console.log(user)
+                    res.render('register', {
+                        layout: false,
+                        err: err,
+                        username: username,
+                        email: email,
+                        password: password,
+                        confirm_password: confirm_password,
+                        fullName: fullName,
+                        pfpURL: pfpURL,
+                        phoneNumber: phoneNumber,
+                        companyName: companyName,
+                        country: country,
+                        postalCode: postalCode
+                    })          
+                }else{
+                    console.log(`${username} does not exist. Creating new user...`)
+                    createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
+                    // Redirect to the dashboard
+                    res.redirect(`/dash/${username}`)  
+                }
             }
         })
-    }else{
-        console.log(`${username} does not exist. Creating new user...`)
-        createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city)
-        // Redirect to the dashboard
-        res.redirect(`/dash/${username}`)
     }
 })
 
-const createUser = (username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city) => {
-    User.create({
+const createUser = (username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+    new User({
         username: username,
         email: email,
         password: password,
@@ -169,7 +206,8 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
         phoneNumber: phoneNumber,
         companyName: companyName,
         country: country,
-        city: city
+        city: city,
+        postalCode: postalCode
     }).save().then(() => {
         console.log(`New User (${username})`)
     }).catch(err => {
@@ -182,9 +220,13 @@ router.get('/login', (req, res) => {
 })
 
 /**
- * @function PostLogin
+ * @function ROUTER-POST-LOGIN
+ * @desc "localhost:8080/user/auth/login"
+ * => Validates user input,
+ * => Checks if a user exists in mongoDB
+ * => Redirects to user dashboard @see /user/:username
  */
-// url '/user/auth/login' (post/login)
+
 router.post('/auth/login', [
     // Validation Rules
     check('username', 'Username must be minimum 3-12 characters').isLength({ min: 3, max: 12}),
