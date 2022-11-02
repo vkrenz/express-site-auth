@@ -1,9 +1,10 @@
 /**
-** @author Victor Krenzel (stu#)
-** @file server.js
-** @desc WEB 322 Assignment
-**
-** @date Halloween 2022 🎃
+* @author Victor Krenzel (stu#)
+* @file server.js
+* @desc WEB 322 Assignment
+*
+* @date ❄️ November 2, 2022 ❄️
+* ==> Added app.use(express.static('public'))
 */
 
 const express = require('express')
@@ -45,6 +46,9 @@ app.engine('hbs', hbs.engine({
     layoutDir: __dirname + '/views/pages',
     partialsDir: __dirname + '/views/partials',
 }))
+
+// Define static filepath
+app.use(express.static(__dirname + '/public'))
 
 // Render index.hbs (main route)
 app.get('/', (req, res) => res.redirect('user'))

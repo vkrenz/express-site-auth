@@ -10,7 +10,8 @@
  * @todo ==> Implement EXPRESS-SESSION
  * @todo ==> Change 'Users_Test' Collection ==> 'Users'
  * ==> Cleaned POST code up
- * ==> Login/Register works! :D
+ * ==> Login/Register works! 😃
+ * ==> Made login form pretty
  */
 
 const router = require('express').Router()
@@ -20,6 +21,7 @@ const bodyParser = require('body-parser')
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({extended: false}))
 
+// Express-session settings
 const session = require('express-session')
 router.use(session({
     secret: 'web322-senecacollege-ca',
@@ -135,7 +137,6 @@ router.post('/auth/register', registerValidationRules, (req, res) => {
     const { username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
     // req.session.user = req.body
     if (!errors.isEmpty()) {
-        console.log("Hello")
         console.log(errors)
         renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
         console.log(`password: ${password} confirm_password: ${confirm_password}`)
