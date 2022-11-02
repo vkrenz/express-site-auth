@@ -13,26 +13,53 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box !important;
 }
+
 body {
     background-color: #EEE !important;
 }
-.wrapper {
-    margin: 220px;
+
+input.form-control {
+    border:0;
+	border-radius:0;
+    border-bottom:1px solid #ebebeb;
 }
+
+/** Override Chrome's Autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input.form-control:focus{
+    border-bottom: 1px solid#25aae1;	
+    box-shadow:none;
+    outline:0;
+    background-color:#ebebeb;	
+}
+
+.wrapper {
+    margin: 80px;
+}
+
 .form-signin {
     max-width: 380px;
     margin: 0 auto;
-    {{!-- background-color: #FFF;
+    background-color: #FFF;
     padding: 15px 40px 50px;
     border: 1px solid #E5E5E5;
-    border-radius: 5px; --}}
+    border-radius: 5px;
 }
+
 .form-signin .form-control {
     padding: 10px;
 }
+
 .form-signin h2 {
     font-weight: bold;
 }
+
 .btn-hover {
     width: 100%;
     font-size: 16px;
@@ -43,12 +70,13 @@ body {
     text-align: center;
     border: none !important;
     background-size: 300% 100%;
-    border-radius: 5px;
+    border-radius: 25px;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .5s ease-in-out;
 }
+
 .btn-hover:hover {
     background-position: 100% 0;
     moz-transition: all .4s ease-in-out;
@@ -56,11 +84,13 @@ body {
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
 }
+
 .btn-hover:focus {
     outline: none;
 }
-.btn-hover.color-3 {
-    background-image: linear-gradient(to right, #25aae1, #40e495, #6B8DD6, #8E37D7);
+
+.btn-hover.gradient {
+    background-image: linear-gradient(to right, #25aae1, #40e495, #25aae1);
 }
 </style>
 <body>
@@ -80,6 +110,9 @@ body {
                 </div> 
         {{/if}}
         <form action="/user/auth/login" method="post" class="form-signin">
+            {{#if error_DNE}}
+                <p class="text-danger"><strong>Error:</strong> {{error_DNE}}</p>
+            {{/if}}
             <h2 class="text-center text-muted m-3">LOGIN</h2>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
@@ -93,7 +126,7 @@ body {
                 <label class="form-check-label" for="remember-me">Remember Me</label>
                 <input type="checkbox" class="form-check-input" name="remember-me" value="remember-me">
             </div>
-            <button type="submit" class="btn-hover color-3 mb-4" align="center">Sign In</button>
+            <button type="submit" class="btn-hover gradient mb-4" align="center">Sign In</button>
             <div class="mb-3 form-check">
                 <p class="text-muted" align="center">Don't have an account? <a href="/user/register">Sign Up</a></p>
             </div>

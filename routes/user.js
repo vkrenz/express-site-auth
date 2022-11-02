@@ -17,14 +17,13 @@ router.use(bodyParser.urlencoded({extended: false}))
 
 const session = require('express-session')
 router.use(session({
-    secret: 'web322-senecacollege-ca-users',
+    secret: 'web322-senecacollege-ca',
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 60000 }
 }))
 
 // Mongo DB Settings
-const { mongoClient } = require('mongodb')
 const mongoose = require('mongoose')
 mongoose.connect("mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mongodb.net/web322")
 const defaultPFPURL = "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
@@ -139,10 +138,10 @@ router.post('/auth/register', [
                 renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
             }else{
                 if(user != null) {
-                    console.log(`${username} already exists bro`)
-                    const userTaken = `${username} is already taken`
+                    console.log(`Username: ${username} already exists bro`)
+                    const userTaken = `Username: ${username} is already taken`
                     console.log(user)
-                    renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
+                    renderRegisterPageUserTaken(userTaken, res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
                 }else{
                     console.log(`${username} does not exist. Creating new user...`)
                     createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
@@ -193,6 +192,25 @@ const renderRegisterPage = (res, err, username, email, password, confirm_passwor
     })
 }
 
+const renderRegisterPageUserTaken = (userTaken, res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+    res.render('register', {
+        layout: false,
+        userTaken: userTaken,
+        err: err,
+        username: username,
+        email: email,
+        password: password,
+        confirm_password: confirm_password,
+        fullName: fullName,
+        pfpURL: pfpURL,
+        phoneNumber: phoneNumber,
+        companyName: companyName,
+        country: country,
+        city: city,
+        postalCode: postalCode
+    })
+}
+
 router.get('/login', (req, res) => {
     res.render('login', { layout: false })
 })
@@ -212,7 +230,6 @@ router.post('/auth/login', [
 ], (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty() || !User.exists({username: req.body.username})) {
-        // return res.status(422).jsonp(errors.array())
         console.log(errors)
         const err = errors.array()
         if(!User.exists({username: req.body.username})) {
@@ -250,7 +267,11 @@ router.get('/dash/:username', (req, res) => {
             console.log(err)
             res.send(err, ':(')
         }else if(user == null){
-            res.send(`Error: User ${username} doesn't exist :((`)
+            const error_DNE = `User: ${username} doesn't exist :((`
+            res.render('login', {
+                layout: false,
+                error_DNE: error_DNE
+            })
         }else{
             User.findOne({username: username}, (err, user) => {
                 if(err) {
@@ -276,9 +297,5 @@ router.get('/dash/:username', (req, res) => {
             })
         }
     })
-    // const { email, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode } = req.session.user
 })
-
-// const findUser = (email, password) => users.some(user => user.email === email && user.password === password)
-
 module.exports = router

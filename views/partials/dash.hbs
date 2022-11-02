@@ -10,20 +10,57 @@
 </head>
 <body>
 
-    <div class="container mt-4" align="center">
+    {{#if username}}
+    <div class="card mb-3" style="max-width: 100vw; height: 300px">
+        <div class="row no-gutters">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <img src="{{pfpURL}}" style="width: 200px; height: 200px" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title text-primary" style="text-transform:uppercase">{{username}}</h5>
+                    <p class="card-text">
+                        <p class="text-muted">Email: <strong class="text-danger">{{email}}</strong></p>
+                        {{#if phoneNumber}}<p class="text-muted">Phone Number: <strong class="text-danger">{{phoneNumber}}</strong></p>{{/if}}
+                        <p class="text-muted">Company: <strong class="text-danger">{{companyName}}</strong></p>
+                        <p class="text-muted">Located In: <strong class="text-danger">{{city}}, {{country}}</strong></p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    {{#else}}
+
+    {{/else}}
+
+    {{!-- <div class="container mt-4" align="center">
         {{#if username}}
-            <img src="{{pfpURL}}" class="rounded-circle mb-3" alt="{{username}}'s profile picture" width="200px" height="200px">
-            <p class="text-muted">Hello, <strong class="text-primary">{{username}}</strong> Welcome to your dashboard!</p>
-            <p class="text-muted">Email: <strong class="text-danger">{{email}}</strong></p>
-            {{#if phoneNumber}}<p class="text-muted">Phone Number: <strong class="text-danger">{{phoneNumber}}</strong></p>{{/if}}
-            <p class="text-muted">Company: <strong class="text-danger">{{companyName}}</strong></p>
-            <p class="text-muted">Located In: <strong class="text-danger">{{city}}, {{country}}</strong></p>
-        {{/if}}
+        <div class="container" style="width:40rem">
+            <div class="row">
+                <div class="col">
+                    <img class="card-img-left float-left" width="200px" height="200px" src="{{pfpURL}}" alt="{{username}}'s profile picture">
+                    <h5 class="card-title float-right text-primary" style="text-transform:uppercase">{{username}}</h5>
+                </div>
+                <div class="col">
+                    <p class="card-text">
+                        <p class="text-muted">Email: <strong class="text-danger">{{email}}</strong></p>
+                        {{#if phoneNumber}}<p class="text-muted">Phone Number: <strong class="text-danger">{{phoneNumber}}</strong></p>{{/if}}
+                        <p class="text-muted">Company: <strong class="text-danger">{{companyName}}</strong></p>
+                        <p class="text-muted">Located In: <strong class="text-danger">{{city}}, {{country}}</strong></p>
+                    </p>
+                    <a href="/user/login" class="btn btn-primary">Log Out</a>
+                </div>
+            </div>
+        </div> --}}
+
+            {{!-- <img src="{{pfpURL}}" class="rounded-circle mb-3 border" alt="{{username}}'s profile picture" width="200px" height="200px"> --}}
+            {{!-- <p class="text-muted">Hello, <strong class="text-primary">{{username}}</strong> Welcome to your dashboard!</p> --}}
+        {{!-- {{/if}}
         {{#else}}
             <p class="text-muted">Bro, who are u?</p>
-        {{/else}}
-        <a href="/user/login"><button class="btn btn-primary btn-block my-5">Log Out</button></button></a>
-    </div>
+        {{/else}}    
+        </div> --}}
     
 </body>
 </html>
