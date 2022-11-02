@@ -7,9 +7,9 @@
  * ==> user dashboard
  * 
  * @date ❄️ November 2, 2022 ❄️
+ * @todo ==> Implement EXPRESS-SESSION
+ * @todo ==> Change 'Users_Test' Collection ==> 'Users'
  * ==> Cleaned POST code up
- * ==> @todo: Implement EXPRESS-SESSION
- * ==> @todo: Change 'Users_Test' Collection ==> 'Users'
  */
 
 const router = require('express').Router()
