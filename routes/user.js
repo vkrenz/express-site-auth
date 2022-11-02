@@ -5,7 +5,7 @@
  * ==> user login
  * ==> user dashboard
  * 
- * @date Halloween 2022 🎃
+ * @date ❄️ November 1, 2022 ❄️
  */
 
 const router = require('express').Router()
@@ -112,7 +112,7 @@ router.get('/register', (req, res) => {
  * @desc "localhost:8080/user/auth/register"
  * ==> Validates user input,
  * ==> Checks if a user exists in mongoDB,
- * ==> Creates a new user in mongoDB collection
+ * ==> Creates a new user in mongoDB collection,
  * ==> Redirects to user dashboard @see /user/dash/:username
  */
 
@@ -124,24 +124,24 @@ router.post('/auth/register', [
     check('confirm_password', 'Passwords do not match').equals('password')
 ], (req, res) => {
     const errors = validationResult(req)
+    const err = errors.array()
     const { username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
     req.session.user = req.body
     if (!errors.isEmpty()) {
         console.log(errors)
-        const err = errors.array()
         renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
     }else{
         // Validate username
-        User.exists({username: username}, (err, user) => {
-            if(err) {
-                console.log(err)
-                renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
+        User.exists({username: username}, (Err, user) => {
+            if(Err) {
+                console.log(Err)
+                renderRegisterPage(res, Err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
             }else{
                 if(user != null) {
                     console.log(`Username: ${username} already exists bro`)
                     const userTaken = `Username: ${username} is already taken`
                     console.log(user)
-                    renderRegisterPageUserTaken(userTaken, res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
+                    renderRegisterPageUserTaken(userTaken, res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
                 }else{
                     console.log(`${username} does not exist. Creating new user...`)
                     createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
@@ -174,9 +174,10 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
     })
 }
 
-const renderRegisterPage = (res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+const renderRegisterPage = (res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
     res.render('register', {
         layout: false,
+        Err: Err,
         err: err,
         username: username,
         email: email,
@@ -219,8 +220,9 @@ router.get('/login', (req, res) => {
  * @function ROUTER-POST-LOGIN
  * @desc "localhost:8080/user/auth/login"
  * ==> Validates user input,
- * ==> Checks if a user exists in mongoDB
- * ==> Redirects to user dashboard @see /user/dash/:username
+ * ==> Checks if a user exists in mongoDB,
+ * ==> Checks if password matches database password,
+ * ==> Redirects to user dashboard @see /user/dash?u=:username
  */
 
 router.post('/auth/login', [
@@ -229,9 +231,9 @@ router.post('/auth/login', [
     check('password', 'Password must be 5-12 characters long').isLength({ min: 5}),
 ], (req, res) => {
     const errors = validationResult(req)
+    const err = errors.array()
     if (!errors.isEmpty() || !User.exists({username: req.body.username})) {
         console.log(errors)
-        const err = errors.array()
         if(!User.exists({username: req.body.username})) {
             couldNotFindUser = "Could not find user"
             res.render('login', {
@@ -256,7 +258,7 @@ router.post('/auth/login', [
 /**
  * @function ROUTER-GET-USER-DASHBOARD
  * @desc 'localhost:/user/dash/username'
- * ==> Check if user exists in mongoDB
+ * ==> Check if user exists in mongoDB,
  * ==> Render a user-specific dashboard page
  */
 
