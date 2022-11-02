@@ -10,6 +10,7 @@
  * @todo ==> Implement EXPRESS-SESSION
  * @todo ==> Change 'Users_Test' Collection ==> 'Users'
  * ==> Cleaned POST code up
+ * ==> Login/Register works! :D
  */
 
 const router = require('express').Router()
