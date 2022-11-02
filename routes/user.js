@@ -1,11 +1,13 @@
 /**
  * @file user.js
  * @desc ✨ Where all the magic happens ✨
+ * ==> user database (mongoDB)
  * ==> user registration
  * ==> user login
  * ==> user dashboard
  * 
  * @date ❄️ November 2, 2022 ❄️
+ * ==> Cleaned POST code up
  */
 
 const router = require('express').Router()
@@ -111,19 +113,20 @@ router.get('/register', (req, res) => {
 /**
  * @function ROUTER-POST-REGISTER
  * @desc "localhost:8080/user/auth/register"
- * ==> Validates user input,
- * ==> Checks if a user exists in mongoDB,
- * ==> Creates a new user in mongoDB collection,
+ * ==> Validates user input, @see registerValidationRules,
+ * ==> Checks if a user exists in mongoDB, if not...
+ * ==> Creates a new user in mongoDB collection 'Users_Test',
  * ==> Redirects to user dashboard @see /user/dash/:username
  */
 
-router.post('/auth/register', [
-    // Validation Rules
-    check('username', 'Username must be minimum 3 characters').isLength({ min: 3}),
-    check('email', 'Email is invalid').isEmail().normalizeEmail(),
-    check('password', 'Password must be minimum 5 characters').isLength({ min : 5}),
-    check('confirm_password', 'Passwords do not match').equals('password')
-], (req, res) => {
+const registerValidationRules = [
+    check('username').isLength({ min: 3}).withMessage('Username must be minimum 3 characters'),
+    check('email').isEmail().normalizeEmail().withMessage('Email is invalid'),
+    check('password').isLength({ min : 5}).withMessage('Password must be minimum 5 characters'),
+    check('confirm_password').equals('password').withMessage('Passwords do not match')
+]
+
+router.post('/auth/register', registerValidationRules, (req, res) => {
     const errors = validationResult(req)
     const err = errors.array()
     const { username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
@@ -227,17 +230,18 @@ router.get('/login', (req, res) => {
 /**
  * @function ROUTER-POST-LOGIN
  * @desc "localhost:8080/user/auth/login"
- * ==> Validates user input,
+ * ==> Validates user input, @see loginValidationRules,
  * ==> Checks if a user exists in mongoDB,
  * ==> Checks if password matches database password,
  * ==> Redirects to user dashboard @see /user/dash/:username
  */
 
-router.post('/auth/login', [
-    // Validation Rules
+const loginValidationRules = [
     check('username').isLength({ min: 3}).withMessage('Username must be minimum 3 characters'),
-    check('password').isLength({ min: 5}).withMessage('Password must be minimum 5 characters long'),
-], (req, res) => {
+    check('password').isLength({ min: 5}).withMessage('Password must be minimum 5 characters long')
+]
+
+router.post('/auth/login', loginValidationRules, (req, res) => {
     const errors = validationResult(req)
     const err = errors.array()
     const { username, password } = req.body
