@@ -1,11 +1,11 @@
 /**
  * @file user.js
- * @desc Router which handles: 
+ * @desc ✨ Where all the magic happens ✨
  * ==> user registration
  * ==> user login
  * ==> user dashboard
  * 
- * @date ❄️ November 1, 2022 ❄️
+ * @date ❄️ November 2, 2022 ❄️
  */
 
 const router = require('express').Router()
@@ -26,10 +26,11 @@ router.use(session({
 // Mongo DB Settings
 const mongoose = require('mongoose')
 mongoose.connect("mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mongodb.net/web322")
-const defaultPFPURL = "https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
+const defaultPFPURL = "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
 
 // MongoDB - Define User Schema
-const User = mongoose.model("Users", new mongoose.Schema({
+// TODO: Change 'Users_Test' ==> 'Users'
+const User = mongoose.model("Users_Test", new mongoose.Schema({
     "createdAt": {
         "type": Date,
         "default": new Date().toLocaleString(),
@@ -126,32 +127,40 @@ router.post('/auth/register', [
     const errors = validationResult(req)
     const err = errors.array()
     const { username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode  } = req.body
-    req.session.user = req.body
+    // req.session.user = req.body
     if (!errors.isEmpty()) {
+        console.log("Hello")
         console.log(errors)
         renderRegisterPage(res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
+        console.log(`password: ${password} confirm_password: ${confirm_password}`)
     }else{
         // Validate username
-        User.exists({username: username}, (Err, user) => {
-            if(Err) {
-                console.log(Err)
-                renderRegisterPage(res, Err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
-            }else{
-                if(user != null) {
-                    console.log(`Username: ${username} already exists bro`)
-                    const userTaken = `Username: ${username} is already taken`
-                    console.log(user)
-                    renderRegisterPageUserTaken(userTaken, res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
+        if(password == username) {
+            const Err = 'Password cannot match username'
+            console.log(Err)
+            renderRegisterPageErr(res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
+        }else{
+            User.findOne({username: username}, (Err, user) => {
+                if(Err) {
+                    console.log(Err)
+                    renderRegisterPageErr(res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)  
                 }else{
-                    console.log(`${username} does not exist. Creating new user...`)
-                    createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
-                    console.log(user)
-                    // Redirect to the dashboard
-                    res.redirect(`/user/dash/${username}`)
-                    console.log(user)  
+                    if(user != null) {
+                        console.log(`Username: ${username} already exists bro`)
+                        Err = `Username: ${username} is already taken`
+                        console.log(user)
+                        renderRegisterPageErr(res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
+                    }else{
+                        console.log(`${username} does not exist. Creating new user...`)
+                        createUser(username, email, password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)
+                        console.log(user)
+                        // Redirect to the dashboard
+                        res.redirect(`/user/dash/${username}`)
+                        console.log(user)  
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 })
 
@@ -174,10 +183,9 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
     })
 }
 
-const renderRegisterPage = (res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+const renderRegisterPage = (res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
     res.render('register', {
         layout: false,
-        Err: Err,
         err: err,
         username: username,
         email: email,
@@ -193,10 +201,10 @@ const renderRegisterPage = (res, Err, err, username, email, password, confirm_pa
     })
 }
 
-const renderRegisterPageUserTaken = (userTaken, res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+const renderRegisterPageErr = (res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
     res.render('register', {
         layout: false,
-        userTaken: userTaken,
+        Err: Err,
         err: err,
         username: username,
         email: email,
@@ -222,38 +230,66 @@ router.get('/login', (req, res) => {
  * ==> Validates user input,
  * ==> Checks if a user exists in mongoDB,
  * ==> Checks if password matches database password,
- * ==> Redirects to user dashboard @see /user/dash?u=:username
+ * ==> Redirects to user dashboard @see /user/dash/:username
  */
 
 router.post('/auth/login', [
     // Validation Rules
-    check('username', 'Username must be minimum 3-12 characters').isLength({ min: 3}),
-    check('password', 'Password must be 5-12 characters long').isLength({ min: 5}),
+    check('username').isLength({ min: 3}).withMessage('Username must be minimum 3 characters'),
+    check('password').isLength({ min: 5}).withMessage('Password must be minimum 5 characters long'),
 ], (req, res) => {
     const errors = validationResult(req)
     const err = errors.array()
-    if (!errors.isEmpty() || !User.exists({username: req.body.username})) {
+    const { username, password } = req.body
+    if (!errors.isEmpty()) {
         console.log(errors)
-        if(!User.exists({username: req.body.username})) {
-            couldNotFindUser = "Could not find user"
-            res.render('login', {
-                layout: false,
-                couldNotFindUser: couldNotFindUser
-            })
-        } else {
-            res.render('login', {
-                layout: false,
-                err: err,
-            })
-        }
-    } else {
-        const { username, password } = req.body
-        console.log(User.exists({username: username}) ? "User found!" : "User not found :(")
-        if(User.exists({username: username})) {
-            res.redirect(`/user/dash/${username}`)
-        }
+        renderLoginPage(res, err, username, password)
+    }else{
+        // Validate username first...
+        User.findOne({username: username}, (Err, user) => {
+            if(Err) {
+                console.log(Err)
+                renderLoginPageErr(res, Err, err, username, password)
+            }else if(user != null) {
+                // Validate if password matches...
+                if(password == user.password) {
+                    console.log('Password matches! :D')
+                    res.redirect(`/user/dash/${username}`)
+                }else{
+                    console.log('Password doesn\'t match :(')
+                    Err = 'Password is incorrect'
+                    renderLoginPageErr(res, Err, err, username, password)
+                    // console.log(`input: ${password}, user: ${user.password}`)
+                }
+            }else{
+                Err = `Could not find user: ${username}`
+                console.log(Err)
+                renderLoginPageErr(res, Err, err, username, password)
+            }
+        })
     }
 })
+
+const renderLoginPageErr = (res, Err, err, username, password) => {
+    console.log("ERR RENDERED")
+    res.render('login', {
+        layout: false,
+        Err: Err,
+        err: err,
+        username: username,
+        password: password
+    })
+}
+
+const renderLoginPage = (res, err, username, password) => {
+    console.log("NO ERR RENDERED")
+    res.render('login', {
+        layout: false,
+        err: err,
+        username: username,
+        password: password
+    })
+}
 
 /**
  * @function ROUTER-GET-USER-DASHBOARD

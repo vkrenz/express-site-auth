@@ -45,7 +45,7 @@ input.form-control:focus{
 }
 
 .form-signin {
-    max-width: 380px;
+    max-width: 400px;
     margin: 0 auto;
     background-color: #FFF;
     padding: 15px 40px 50px;
@@ -96,23 +96,18 @@ input.form-control:focus{
 </style>
 <body>
     <div class="wrapper">
-        {{#if err}}
-            {{#each err}}
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error:</strong> {{this.msg}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-            {{/each}}
-        {{/if}}
-        {{#if couldNotFindUser}}
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error:</strong> {{couldNotFindUser}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div> 
-        {{/if}}
         <form action="/user/auth/login" method="post" class="form-signin">
-            {{#if error_DNE}}
-                <p class="text-danger"><strong>Error:</strong> {{error_DNE}}</p>
+            {{#if err}}
+                {{#each err}}
+                    <div class="alert alert-warning mt-3" id="err" role="alert">
+                        {{this.msg}}
+                    </div>
+                {{/each}}
+            {{/if}}
+            {{#if Err}}
+                <div class="alert alert-warning mt-3" id="Err" role="alert">
+                    {{Err}}
+                </div>
             {{/if}}
             <h2 class="text-center text-muted m-3">LOGIN</h2>
             <div class="mb-3">
