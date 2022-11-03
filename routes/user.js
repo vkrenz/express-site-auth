@@ -17,6 +17,7 @@
  * ==> User-doesn't-exist error links to pre-filled register
  * ==> User-already-exists error links to pre-filled login
  * ==> Made register form pretty
+ * ==> Login page shows current userbase
  */
 
 const router = require('express').Router()
@@ -37,7 +38,8 @@ router.use(session({
 
 // Mongo DB Settings
 const mongoose = require('mongoose')
-mongoose.connect("mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mongodb.net/web322")
+const url = "mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mongodb.net/web322"
+mongoose.connect(url)
 const defaultPFPURL = "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
 
 // MongoDB - Define User Schema
@@ -240,15 +242,35 @@ const renderRegisterPageErr = (res, Err, err, username, email, password, confirm
     })
 }
 
+// Doesn't work :(
+// const userCount = Object.keys(User.countDocuments({})).length
+// console.log(userCount)
+
 router.get('/login', (req, res) => {
-    res.render('login', { layout: false })
+    User.countDocuments({/** All documents */}, (err, count) => {
+        if(err) {
+            console.log(err)
+        }else{
+            res.render('login', {
+                layout: false,
+                count: count
+            })
+        }
+    })
 })
 
 router.get('/login/:username', (req, res) => {
     const { passedUsername } = req.params
-    res.render('login', {
-        layout: false,
-        passedUsername: passedUsername
+    User.countDocuments({/** All Documents */}, (err, count) => {
+        if(err) {
+            console.log(err)
+        }else{
+            res.render('login', {
+                layout: false,
+                passedUsername: passedUsername,
+                count: count
+            })
+        }
     })
 })
 

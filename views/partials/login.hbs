@@ -148,7 +148,7 @@ input.form-control:focus{
             </div>
         </div>
     </nav>
-    <div class="container-fluid d-flex justify-content-center align-items-center" id="gradient-background">
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-column" id="gradient-background">
         <form action="/user/auth/login" method="post" class="form-signin shadow-lg">
             {{#if err}}
                 {{#each err}}
@@ -188,19 +188,22 @@ input.form-control:focus{
             </div>
         </form>
     </div>
-    <ul class="nav justify-content-center py-5">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Active</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-        </li>
+    <ul class="nav d-flex justify-content-center align-items-center flex-column">
+        <h5 class="text-dark font-weight-light mt-4">✨ [ <strong>{{count}}</strong> ] Users are happily registered ✨</h5>
+        <div class="nav-links d-flex my-4">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+            </li>
+        </div>
     </ul>
 </body>
 </html>
