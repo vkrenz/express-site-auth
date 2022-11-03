@@ -8,10 +8,12 @@
  * 
  * @date ❄️ November 2, 2022 ❄️
  * @todo ==> Implement EXPRESS-SESSION
- * @todo ==> Change 'Users_Test' Collection ==> 'Users'
+ * @todo ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
  * ==> Cleaned POST code up
  * ==> Login/Register works! 😃
  * ==> Made login form pretty
+ * ==> User-doesn't-exist error links to pre-filled register
+ * ==> User-already-exists error links to pre-filled login
  */
 
 const router = require('express').Router()
@@ -115,6 +117,14 @@ router.get('/register', (req, res) => {
     res.render('register', { layout: false })
 })
 
+router.get('/register/:username', (req, res) => {
+    const passedUsername = req.params.username
+    res.render('register', {
+        layout: false,
+        passedUsername: passedUsername
+    })
+})
+
 /**
  * @function ROUTER-POST-REGISTER
  * @desc "localhost:8080/user/auth/register"
@@ -154,7 +164,7 @@ router.post('/auth/register', registerValidationRules, (req, res) => {
                 }else{
                     if(user != null) {
                         console.log(`Username: ${username} already exists bro`)
-                        Err = `Username: ${username} is already taken`
+                        Err = `Looks like '<strong>${username}</strong>' already exists. <a href="/user/login/${username}" class="alert-link">Log In?</a>`
                         console.log(user)
                         renderRegisterPageErr(res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode)        
                     }else{
@@ -231,6 +241,14 @@ router.get('/login', (req, res) => {
     res.render('login', { layout: false })
 })
 
+router.get('/login/:username', (req, res) => {
+    const passedUsername = req.body.username
+    res.render('login', {
+        layout: false,
+        passedUsername: passedUsername
+    })
+})
+
 /**
  * @function ROUTER-POST-LOGIN
  * @desc "localhost:8080/user/auth/login"
@@ -265,13 +283,13 @@ router.post('/auth/login', loginValidationRules, (req, res) => {
                     res.redirect(`/user/dash/${username}`)
                 }else{
                     console.log('Password doesn\'t match :(')
-                    Err = 'Password is incorrect'
+                    Err = 'Incorrect password'
                     renderLoginPageErr(res, Err, err, username, password)
                     // console.log(`input: ${password}, user: ${user.password}`)
                 }
             }else{
-                Err = `Could not find user: ${username}`
-                console.log(Err)
+                Err = `'<strong>${username}</strong>' does not exist. <a href="/user/register/${username}" class="alert-link">Sign Up?</a>`
+                console.log(`${username} does not exist`)
                 renderLoginPageErr(res, Err, err, username, password)
             }
         })
@@ -313,10 +331,10 @@ router.get('/dash/:username', (req, res) => {
             console.log(err)
             res.send(err, ':(')
         }else if(user == null){
-            const error_DNE = `User: ${username} doesn't exist :((`
+            const Err = `'<strong>${username}</strong>' does not exist. <a href="/user/register/${username}" class="alert-link">Sign Up?</a>`
             res.render('login', {
                 layout: false,
-                error_DNE: error_DNE
+                Err: Err
             })
         }else{
             User.findOne({username: username}, (err, user) => {

@@ -24,7 +24,7 @@
             {{/if}}
             {{#if Err}}
                 <div class="alert alert-warning mt-3" role="alert">
-                    {{Err}}
+                   {{{Err}}}
                 </div>
             {{/if}}
             <form method="post" action="/user/auth/register" onsubmit="console.log(`Email: ${req.body.email}`)">
@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-4">
                         <label for="username" class="required">Username</label>
-                        <input type="text" class="form-control" name="username" {{#if username}}value="{{username}}"{{/if}} required />                         
+                        <input type="text" class="form-control" name="username" {{#if username}}value="{{username}}"{{/if}}{{#if passedUsername}}value="{{passedUsername}}"{{/if}} required />                         
                         <div class="invalid-feedback">
                             Please choose a username.
                         </div>
