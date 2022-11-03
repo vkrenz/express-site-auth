@@ -6,14 +6,16 @@
  * ==> user login
  * ==> user dashboard
  * 
- * @date ❄️ November 2, 2022 ❄️
+ * @date ❄️ November 3, 2022 ❄️
  * @todo ==> Implement EXPRESS-SESSION
  * @todo ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
+ * Changelog
  * ==> Cleaned POST code up
  * ==> Login/Register works! 😃
  * ==> Made login form pretty
  * ==> User-doesn't-exist error links to pre-filled register
  * ==> User-already-exists error links to pre-filled login
+ * ==> Made register form pretty
  */
 
 const router = require('express').Router()
@@ -118,7 +120,7 @@ router.get('/register', (req, res) => {
 })
 
 router.get('/register/:username', (req, res) => {
-    const passedUsername = req.params.username
+    const { passedUsername } = req.params
     res.render('register', {
         layout: false,
         passedUsername: passedUsername
@@ -242,7 +244,7 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/login/:username', (req, res) => {
-    const passedUsername = req.body.username
+    const { passedUsername } = req.params
     res.render('login', {
         layout: false,
         passedUsername: passedUsername
@@ -329,7 +331,7 @@ router.get('/dash/:username', (req, res) => {
     User.exists({username: username}, (err, user) => {
         if(err) {
             console.log(err)
-            res.send(err, ':(')
+            // res.send(err, ':(')
         }else if(user == null){
             const Err = `'<strong>${username}</strong>' does not exist. <a href="/user/register/${username}" class="alert-link">Sign Up?</a>`
             res.render('login', {
