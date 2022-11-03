@@ -152,7 +152,7 @@ input.form-control:focus{
         </div>
     </nav>
     <div class="container-fluid d-flex justify-content-center align-items-center" id="gradient-background">
-        <form method="post" action="/user/auth/register" class="form-register">
+        <form method="post" action="/user/auth/register" class="form-register shadow-lg">
             {{#if err}}
                 {{#each err}}
                     <div class="alert alert-warning mt-3" role="alert">
@@ -166,7 +166,7 @@ input.form-control:focus{
                 </div>
             {{/if}}
             <div class="row">
-                <div class="col-sm-12 col-md-6" id="general-information">
+                <div class="col-6" id="general-information">
                     <h4 class="text-muted font-weight-light my-4">General Information</h4>
                     <div class="row">
                         <div class="col">
@@ -208,7 +208,7 @@ input.form-control:focus{
                         <p class="text-muted my-4">(<span class=required></span> = required)</p>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6" id="contact-details">
+                <div class="col-6" id="contact-details">
                     <h4 class="text-muted font-weight-light my-4">Contact Details</h4>
                     <div class="row">
                         <div class="form-group my-2">
@@ -243,7 +243,7 @@ input.form-control:focus{
                             <label for="pfpURL">Upload Profile Picture (URL)</label>
                             <input type="text" name="pfpURL" id="pfpURL" class="form-control">
                         </div>
-                        <button type="submit" class="btn-hover gradient my-4" align="center">Register</button>
+                        <button type="submit" class="btn-hover gradient my-4 shadow-lg" align="center">Register</button>
                         <p class="text-muted text-left float-left">Already have an account? <a href="/user/login" style="text-decoration:none" class="link-login">Log in</a></p>
                     </div>
                 </div>

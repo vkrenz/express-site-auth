@@ -17,10 +17,29 @@
     box-sizing: border-box;
 }
 
+#left-panel,
+#right-panel {
+
+}
+
+#bottom-panel {
+    width: 100vw !important;
+    padding: 0;
+}
+
+#info-container {
+    margin-top: 250px;
+}
+
 #background {
     width: 100vw !important;
     height: 100vh !important;
-    background-color: #EBEBEB;
+    background-color: white;
+}
+
+#user-background {
+    background-color: #313131;
+    height: 250px;
 }
 
 .crop {
@@ -30,66 +49,78 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 10px solid white;
 }
 
 .crop img {
     height: 100%;
     width: auto;
 }
+
+.name-container {
+    margin-top: 250px;
+}
+
+.info {
+    margin-top: 100px;
+}
+
+#pfp {
+    margin-top: 125px;
+}
 </style>
-<body>
-    <div class="container-fluid d-flex justify-content-center align-items-center" id="background">
+<body style="overflow-x:hidden">
+    <nav class="navbar navbar-expand-lg bg-light py-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid" id="background">
         {{#if username}}
-        <div class="card mb-3">
-            <div class="row no-gutters">
-                <div class="col-md-4 d-flex justify-content-center align-items-center">
-                    <div class="crop card-images">
+        <div class="row justify-content-center" id="user-background">
+            <div class="col-auto position-absolute" id="left-panel">
+                <div class="row justify-content-center py-4 px-2">
+                    <div class="crop card-images rounded-circle" id="pfp">
                         <img src="{{pfpURL}}" alt="...">
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary" style="text-transform:uppercase">{{username}}</h5>
-                        <p class="card-text">
+            </div>
+            <div class="col d-flex align-items-center" id="bottom-panel">
+                <div class="col">
+                    <div class="py-2 px-5 rounded d-flex flex-column align-items-center shadow-lg" id="info-container">
+                        <div class="info py-4 text-center">
                             <p class="text-muted">Email: <strong class="text-danger">{{email}}</strong></p>
-                            {{#if phoneNumber}}<p class="text-muted">Phone Number: <strong class="text-danger">{{phoneNumber}}</strong></p>{{/if}}
+                            {{#if phoneNumber}}<p class="text-muted">Phone: <strong class="text-danger">{{phoneNumber}}</strong></p>{{/if}}
                             <p class="text-muted">Company: <strong class="text-danger">{{companyName}}</strong></p>
                             <p class="text-muted">Located In: <strong class="text-danger">{{city}}, {{country}}</strong></p>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         {{/if}}
-    </div>
-
-    {{!-- <div class="container mt-4" align="center">
-        {{#if username}}
-        <div class="container" style="width:40rem">
-            <div class="row">
-                <div class="col">
-                    <img class="card-img-left float-left" width="200px" height="200px" src="{{pfpURL}}" alt="{{username}}'s profile picture">
-                    <h5 class="card-title float-right text-primary" style="text-transform:uppercase">{{username}}</h5>
-                </div>
-                <div class="col">
-                    <p class="card-text">
-                        <p class="text-muted">Email: <strong class="text-danger">{{email}}</strong></p>
-                        {{#if phoneNumber}}<p class="text-muted">Phone Number: <strong class="text-danger">{{phoneNumber}}</strong></p>{{/if}}
-                        <p class="text-muted">Company: <strong class="text-danger">{{companyName}}</strong></p>
-                        <p class="text-muted">Located In: <strong class="text-danger">{{city}}, {{country}}</strong></p>
-                    </p>
-                    <a href="/user/login" class="btn btn-primary">Log Out</a>
-                </div>
-            </div>
-        </div> --}}
-
-            {{!-- <img src="{{pfpURL}}" class="rounded-circle mb-3 border" alt="{{username}}'s profile picture" width="200px" height="200px"> --}}
-            {{!-- <p class="text-muted">Hello, <strong class="text-primary">{{username}}</strong> Welcome to your dashboard!</p> --}}
-        {{!-- {{/if}}
         {{#else}}
-            <p class="text-muted">Bro, who are u?</p>
-        {{/else}}    
-        </div> --}}
-    
+
+        {{/else}}
+    </div>
 </body>
 </html>

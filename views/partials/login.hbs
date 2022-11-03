@@ -149,7 +149,7 @@ input.form-control:focus{
         </div>
     </nav>
     <div class="container-fluid d-flex justify-content-center align-items-center" id="gradient-background">
-        <form action="/user/auth/login" method="post" class="form-signin">
+        <form action="/user/auth/login" method="post" class="form-signin shadow-lg">
             {{#if err}}
                 {{#each err}}
                     <div class="alert alert-warning mt-3" id="err" role="alert">
@@ -182,7 +182,7 @@ input.form-control:focus{
                 <label class="form-check-label" for="remember-me">Remember Me</label>
                 <input type="checkbox" class="form-check-input" name="remember-me" value="remember-me">
             </div>
-            <button type="submit" class="btn-hover gradient my-5" align="center">Sign In</button>
+            <button type="submit" class="btn-hover gradient my-5 shadow-lg" align="center">Sign In</button>
             <div class="mb-3 form-check">
                 <p class="text-muted" align="center">Don't have an account? <a href="/user/register" style="text-decoration:none" class="link-register">Sign Up</a></p>
             </div>
