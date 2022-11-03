@@ -3,8 +3,10 @@
 * @file server.js
 * @desc WEB 322 Assignment
 *
-* @date ❄️ November 2, 2022 ❄️
+* @date ❄️ November 3, 2022 ❄️
 * @todo Place a favicon in /public dir
+* @todo Implement article.js
+* Changelog
 * ==> Added app.use(express.static('public'))
 */
 

@@ -327,6 +327,7 @@ const renderLoginPage = (res, err, username, password) => {
  */
 
 router.get('/dash/:username', (req, res) => {
+    const genericCoverPhotoPATH = 'img/genericCoverPhotoPATH'
     const { username } = req.params
     User.exists({username: username}, (err, user) => {
         if(err) {
@@ -364,4 +365,5 @@ router.get('/dash/:username', (req, res) => {
         }
     })
 })
+
 module.exports = router
