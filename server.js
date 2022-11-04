@@ -37,9 +37,12 @@ app.use(session({
 app.use(cors())
 app.use(cookieParser())
 
+// User Router Import
 const user = require('./routes/user')
 app.use('/user', user)
 
+// UserDB Import
+const User = require('./routes/user')
 
 // View Engine Setup
 app.set('view engine', '.hbs')
@@ -52,7 +55,11 @@ app.engine('hbs', hbs.engine({
 }))
 
 // Render index.hbs (main route)
-app.get('/', (req, res) => res.redirect('user'))
+app.get('/', (req, res) => res.redirect('/home'))
+
+app.get('/home', (req, res) => {
+    res.render('index', { layout: false })
+})
 
 // Define PORT
 const PORT = process.env.PORT || 8080

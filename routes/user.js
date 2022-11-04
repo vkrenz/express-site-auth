@@ -389,4 +389,4 @@ router.get('/dash/:username', (req, res) => {
     })
 })
 
-module.exports = router
+module.exports = router, { User }
