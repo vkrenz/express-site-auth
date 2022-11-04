@@ -45,7 +45,7 @@ header {
 	}
 }
 </style>
-<body>
+<body onload="todayDate()">
 
 {{!-- Navbar Start --}}
 <nav class="navbar fixed-top navbar-expand-lg bg-light shadow-lg" id="navbar">
@@ -60,16 +60,19 @@ header {
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="/blog">Blog</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="/articles/read_more">Articles</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="/user/register">Register</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
+                    <a class="nav-link" href="/user/login">Login</a>
                 </li>
             </ul>
             </div>
@@ -118,6 +121,36 @@ header {
 {{!-- Main Container End --}}
 </div>
 
+{{!-- Footer Start --}}
+<ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">
+    <div class="nav-links d-flex my-5">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/blog">Blog</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/articles/read_more">Articles</a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/user/register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/user/login">Login</a>
+        </li>
+    </div>
+    <div class="footer">
+        <p>🔥 Created <strong>by</strong> Victor Krenzel. &copy; <em id="date" class="text-danger"></em> 🔥</p>
+        <div class="col-auto p-4 text-center">
+            <i class="fa-brands fa-github fa-lg px-2"></i>
+            <i class="fa-brands fa-codepen fa-lg px-2"></i>
+            <i class="fa-brands fa-linkedin fa-lg px-2"></i>
+        </div>
+    </div>
+</ul>
+{{!-- Footer End --}}
+
 <script>
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function() {
@@ -128,6 +161,12 @@ header {
         document.getElementById("navbar").style.top = "-80px";
     }
     prevScrollpos = currentScrollPos;
+    }
+
+    function todayDate(){
+        var d = new Date();
+        var n = d.getFullYear() + "  ";
+        return document.getElementById("date").innerHTML = n;
     }
 </script>
     

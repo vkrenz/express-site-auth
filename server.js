@@ -2,9 +2,14 @@
 * @author Victor Krenzel (102446176)
 * @file server.js
 * @desc WEB 322 Assignment
+* ==> The main server file for the app
+* ==> Handles the main route
+* ==> Handles all the general app settings
+* 
 *
-* @date ❄️ November 3, 2022 ❄️
+* @date ❄️ November 4, 2022 ❄️
 * @todo Implement article.js
+* @todo Implement scrollmagic.js
 * Changelog
 * ==> Declared static path
 * ==> Added a favicon.ico
