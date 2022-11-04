@@ -2,7 +2,7 @@
   "name": "express-site-auth",
   "version": "1.0.0",
   "description": "Web Hosting Canada",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "nodemon server.js"
   },
