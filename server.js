@@ -4,10 +4,10 @@
 * @desc WEB 322 Assignment
 *
 * @date ❄️ November 3, 2022 ❄️
-* @todo Place a favicon in /public dir
 * @todo Implement article.js
 * Changelog
-* ==> Added app.use(express.static('public'))
+* ==> Declared static path
+* ==> Added a favicon.ico
 */
 
 // Express settings
@@ -24,8 +24,8 @@ const path = require('path')
 
 
 // General app settings
-// Uncomment after placing favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+const favicon = require('serve-favicon')
+app.use(favicon(path.join(__dirname, 'public', 'img', 'favicon.ico')))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({
     secret: 'webhost322',
