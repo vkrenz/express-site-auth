@@ -3,7 +3,7 @@
 * @file server.js
 * @desc WEB 322 Assignment
 * ==> The main server file for the app
-* ==> Handles the main route
+* ==> Handles the main route (/home)
 * ==> Handles all the general app settings
 * 
 *

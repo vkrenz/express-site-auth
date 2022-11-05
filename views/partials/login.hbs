@@ -129,7 +129,7 @@ input.form-control:focus{
 	}
 }
 </style>
-<body style="overflow-x:hidden" onload="todayDate()">
+<body style="overflow-x:hidden">
     <nav class="navbar fixed-top navbar-expand-lg bg-light shadow-lg" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -214,7 +214,7 @@ input.form-control:focus{
             </li>
         </div>
         <div class="footer">
-          <p>🔥 Created <strong>by</strong> Victor Krenzel. &copy; <em id="date" class="text-danger"></em> 🔥</p>
+            <p>🔥 Created <strong>by</strong> Victor Krenzel. &copy; <em class="text-danger">2022</em> 🔥</p>
         </div>
     </ul>
 <script>
@@ -227,12 +227,6 @@ input.form-control:focus{
         document.getElementById("navbar").style.top = "-80px";
     }
     prevScrollpos = currentScrollPos;
-    }
-
-    function todayDate(){
-        var d = new Date();
-        var n = d.getFullYear() + "  ";
-        return document.getElementById("date").innerHTML = n;
     }
 </script>
 </body>
