@@ -8,8 +8,8 @@
 * 
 *
 * @date ❄️ November 4, 2022 ❄️
-* @todo Implement article.js
-* @todo Implement scrollmagic.js
+* @TODO Implement article.js
+* @TODO Implement scrollmagic.js
 * Changelog
 * ==> Declared static path
 * ==> Added a favicon.ico

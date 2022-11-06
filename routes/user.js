@@ -6,10 +6,10 @@
  * ==> user login
  * ==> user dashboard
  * 
- * @date ❄️ November 3, 2022 ❄️
- * @todo ==> Implement EXPRESS-SESSION
- * @todo ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
- * @todo ==> Style user dashboard
+ * @date ❄️ November 4, 2022 ❄️
+ * @TODO ==> Implement EXPRESS-SESSION
+ * @TODO ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
+ * @TODO ==> Style user dashboard
  * Changelog
  * ==> Cleaned POST code up
  * ==> Login/Register works! 😃
