@@ -6,11 +6,17 @@
  * ==> user login
  * ==> user dashboard
  * 
- * @date ❄️ November 4, 2022 ❄️
+ * DO TODAY
+ * --------
+ * ==> Implement articles.js
+ * ==> Implement a blog page
+ * 
+ * @date ❄️ November 7, 2022 ❄️
  * @TODO ==> Implement EXPRESS-SESSION
  * @TODO ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
  * @TODO ==> Style user dashboard
  * Changelog
+ * ==> Fixed: confirm_password
  * ==> Cleaned POST code up
  * ==> Login/Register works! 😃
  * ==> Made login form pretty
@@ -25,7 +31,7 @@ const router = require('express').Router()
 // Body Parser settings
 const bodyParser = require('body-parser')
 router.use(bodyParser.json())
-router.use(bodyParser.urlencoded({extended: false}))
+router.use(bodyParser.urlencoded({extended: true}))
 
 // Express-session settings
 const session = require('express-session')
@@ -123,7 +129,7 @@ router.get('/register', (req, res) => {
 })
 
 router.get('/register/:username', (req, res) => {
-    const { passedUsername } = req.params
+    const { passedUsername } = req.params.username
     res.render('register', {
         layout: false,
         passedUsername: passedUsername
@@ -140,10 +146,26 @@ router.get('/register/:username', (req, res) => {
  */
 
 const registerValidationRules = [
-    check('username').isLength({ min: 3}).withMessage('Username must be minimum 3 characters'),
-    check('email').isEmail().normalizeEmail().withMessage('Email is invalid'),
-    check('password').isLength({ min : 5}).withMessage('Password must be minimum 5 characters'),
-    check('confirm_password').equals('password').withMessage('Passwords do not match')
+    check('username')
+        .isLength({ min: 3})
+        .withMessage('Username must be minimum 3 characters'),
+    check('email')
+        .isEmail()
+        .normalizeEmail()
+        .withMessage('Email is invalid'),
+    check('password')
+        .isLength({min: 4, max: 16})
+        .withMessage('Password must be between 4 to 16 characters'),
+    check('confirm_password')
+        .trim()
+        .isLength({min: 4, max: 16})
+        .withMessage('Password must be between 4 to 16 characters')
+        .custom(async (confirm_password, {req}) => {
+            const password = req.body.password
+            if(password !== confirm_password) {
+                throw new Error('Passwords must be the same')
+            }
+        })
 ]
 
 router.post('/auth/register', registerValidationRules, (req, res) => {
@@ -206,6 +228,7 @@ const createUser = (username, email, password, fullName, pfpURL, phoneNumber, co
 }
 
 const renderRegisterPage = (res, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+    console.log('NO ERR RENDERED')
     res.render('register', {
         layout: false,
         err: err,
@@ -224,6 +247,7 @@ const renderRegisterPage = (res, err, username, email, password, confirm_passwor
 }
 
 const renderRegisterPageErr = (res, Err, err, username, email, password, confirm_password, fullName, pfpURL, phoneNumber, companyName, country, city, postalCode) => {
+    console.log('ERR RENDERED')
     res.render('register', {
         layout: false,
         Err: Err,
@@ -350,7 +374,7 @@ const renderLoginPage = (res, err, username, password) => {
  */
 
 router.get('/dash/:username', (req, res) => {
-    const genericCoverPhotoPATH = 'img/genericCoverPhotoPATH'
+    // const genericCoverPhotoPATH = 'img/genericCoverPhoto'
     const { username } = req.params
     User.exists({username: username}, (err, user) => {
         if(err) {
@@ -389,4 +413,4 @@ router.get('/dash/:username', (req, res) => {
     })
 })
 
-module.exports = router, { User }
+module.exports = router
