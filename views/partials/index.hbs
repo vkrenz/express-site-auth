@@ -7,50 +7,8 @@
     <title>Snap! | Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/index.css">
 </head>
-<style>
-:root {
-    --bg-gradient: linear-gradient(-45deg, #6f0000, #C33764, #6190E8, #67b26f, #A7BFE8, #3B4371, #2F0743);
-}
-
-* {
-    box-sizing: border-box;
-}
-
-section {
-    background: white,
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
-
-header {
-}
-
-#navbar {
-    height: 100px;
-    top: 0;
-    transition: top 0.3s;
-}
-
-#gradient-background {
-	background: var(--bg-gradient);
-	background-size: 400% 400%;
-	animation: bg-gradient 15s ease infinite;
-}
-
-@keyframes bg-gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-</style>
 <body>
 
 {{!-- Navbar Start --}}
@@ -87,9 +45,10 @@ header {
 {{!-- Navbar End --}}
 
 {{!-- Header Start --}}
-<header data-stellar-background-ratio="0.5">
-    <img src="/img/background.jpg" alt="">
-</header>
+<div class="background parallax" id="gradient-background">
+    <h1>Web Hosting. <em>Effortlessly</em>.</h1>
+    <a href="#plans" class="btn-hover gradient mt-5 shadow-lg text-decoration-none">See Our Plans</a>
+</div>
 {{!-- Header End --}}
 
 {{!-- Main Container --}}
@@ -129,6 +88,73 @@ header {
 {{!-- Main Container End --}}
 </div>
 
+{{!-- Plans Start --}}
+<section id="plans">
+    <h2 class="text-muted text-center my-5">Our Pricing</h2>
+    <div class="container-fluid text-center mb-5">
+        <div class="row">
+            <div class="col">
+                <h2>Go</h2>
+                <p>
+                    Affordable plan, great for starting a new web project.
+                </p>
+                <small>For only</small>
+                <div class="price">
+                    <strong>$3.89</strong>/mo
+                </div>
+                <small>
+                    <del>$9.99</del>
+                    <strong class="bg-warning">Save 99%</strong>
+                </small>
+                <div class="cta">
+                    <a href="#" class="btn btn-lg btn-primary">
+                        Add To Cart
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Go</h2>
+                <p>
+                    Affordable plan, great for starting a new web project.
+                </p>
+                <small>For only</small>
+                <div class="price">
+                    <strong>$3.89</strong>/mo
+                </div>
+                <small>
+                    <del>$9.99</del>
+                    <strong class="bg-warning">Save 99%</strong>
+                </small>
+                <div class="cta">
+                    <a href="#" class="btn btn-lg btn-primary">
+                        Add To Cart
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Go</h2>
+                <p>
+                    Affordable plan, great for starting a new web project.
+                </p>
+                <small>For only</small>
+                <div class="price">
+                    <strong>$3.89</strong>/mo
+                </div>
+                <small>
+                    <del>$9.99</del>
+                    <strong class="bg-warning">Save 99%</strong>
+                </small>
+                <div class="cta">
+                    <a href="#" class="btn btn-lg btn-primary">
+                        Add To Cart
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{!-- Plans End --}}
+
 {{!-- Footer Start --}}
 <ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">
     <div class="nav-links d-flex my-5">
@@ -149,6 +175,7 @@ header {
         </li>
     </div>
     <div class="footer">
+        <div class="div mx-auto mb-5" style="width:50px;height:1px;background-color:rgba(0, 0, 0, 0.25);"></div>
         <p>🔥 Created <strong>by</strong> Victor Krenzel. &copy; <em class="text-danger">2022</em> 🔥</p>
         <div class="col-auto p-4 text-center">
             <i class="fa-brands fa-github fa-lg px-2"></i>

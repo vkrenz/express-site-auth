@@ -13,6 +13,7 @@
 * Changelog
 * ==> Declared static path
 * ==> Added a favicon.ico
+* ==> Index.css created in public dir
 */
 
 // Express settings
