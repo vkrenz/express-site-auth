@@ -16,6 +16,7 @@
  * @TODO ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
  * @TODO ==> Style user dashboard
  * Changelog
+ * ==> Fixed: passedUsername 
  * ==> Fixed: confirm_password
  * ==> Cleaned POST code up
  * ==> Login/Register works! 😃
@@ -129,7 +130,8 @@ router.get('/register', (req, res) => {
 })
 
 router.get('/register/:username', (req, res) => {
-    const { passedUsername } = req.params.username
+    const passedUsername = req.params.username
+    console.log(passedUsername)
     res.render('register', {
         layout: false,
         passedUsername: passedUsername
@@ -284,7 +286,8 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/login/:username', (req, res) => {
-    const { passedUsername } = req.params
+    const passedUsername = req.params.username
+    console.log(passedUsername)
     User.countDocuments({/** All Documents */}, (err, count) => {
         if(err) {
             console.log(err)
@@ -375,7 +378,7 @@ const renderLoginPage = (res, err, username, password) => {
 
 router.get('/dash/:username', (req, res) => {
     // const genericCoverPhotoPATH = 'img/genericCoverPhoto'
-    const { username } = req.params
+    const username = req.params.username
     User.exists({username: username}, (err, user) => {
         if(err) {
             console.log(err)
