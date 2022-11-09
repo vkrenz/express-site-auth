@@ -7,8 +7,9 @@
     <title>Snap! | Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/index.css">
-</head>
+    <link rel="stylesheet" href="/css/index.css"></head>
+    <link rel="stylesheet" href="/css/navbar.css"></head>
+    <link rel="stylesheet" href="/css/gradient-button.css">
 <body>
 
 {{!-- Navbar Start --}}
@@ -22,7 +23,7 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto" id="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 </li>
@@ -36,7 +37,7 @@
                     <a class="nav-link" href="/user/register">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/login">Login</a>
+                    <a class="btn btn-outline-primary btn-md mx-2 login-btn" href="/user/login">Login</a>
                 </li>
             </ul>
             </div>
@@ -46,8 +47,10 @@
 
 {{!-- Header Start --}}
 <div class="background parallax" id="gradient-background">
-    <h1>Web Hosting. <em>Effortlessly</em>.</h1>
-    <a href="#plans" class="btn-hover gradient mt-5 shadow-lg text-decoration-none">See Our Plans</a>
+    <div class="header-cont container d-flex justify-content-center align-items-center flex-column">
+        <h1>Web Hosting. <em>Effortlessly</em>.</h1>
+        <a href="#plans" class="cta btn-hover gradient mt-5 shadow-lg text-decoration-none">See Our Plans</a>
+    </div>
 </div>
 {{!-- Header End --}}
 
@@ -58,41 +61,41 @@
 <div class="section about-us">
     <div class="container">
         <div class="row mt-4 py-5">
-            <div class="col-sm-12 col-md-6 col-lg-3 py-4 d-flex justify-content-center align-items-center flex-column" align="center">
+            <div class="col-sm-12 col-md-6 col-lg-3 py-4 px-4 d-flex justify-content-center align-items-center flex-column" align="center">
                 <i class="fa-solid fa-server fa-4x"></i>
                 <h3 class="my-2">Web Hosting</h3>
                 <span class="mt-2 mb-5">
                     Get fast and unlimited web hosting for your site 
                 </span>
                 <a href="#" class="btn btn-primary w-100 mb-2">Get Hosting</a>
-                <small class="bg-warning">Save up to 61%!</small>
+                <small class="bg-warning px-2">Save up to 61%!</small>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-3 py-4 d-flex justify-content-center align-items-center flex-column" align="center">
+            <div class="col-sm-12 col-md-6 col-lg-3 py-4 px-4 d-flex justify-content-center align-items-center flex-column" align="center">
                 <i class="fa-solid fa-cloud-upload fa-4x"></i>
                 <h3 class="my-2">Cloud Servers</h3>
                 <span class="mt-2 mb-5">
                     Take full control with our fastest virtual servers
                 </span>
                 <a href="#" class="btn btn-primary w-100 mb-2">Compare Clouds</a>
-                <small class="bg-warning">Save up to 8%!</small>
+                <small class="bg-warning px-2">Save up to 8%!</small>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-3 py-4 d-flex justify-content-center align-items-center flex-column" align="center">
+            <div class="col-sm-12 col-md-6 col-lg-3 py-4 px-4 d-flex justify-content-center align-items-center flex-column" align="center">
                 <i class="fa-solid fa-hdd fa-4x"></i>
                 <h3 class="my-2">Dedicated Servers</h3>
                 <span class="mt-2 mb-5">
                     Boost your business with dedicated hardware
                 </span>
                 <a href="#" class="btn btn-primary w-100 mb-2">View Servers</a>
-                <small class="bg-warning">Save up to 5%!</small>
+                <small class="bg-warning px-2">Save up to 5%!</small>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-3 py-4 d-flex justify-content-center align-items-center flex-column" align="center">
+            <div class="col-sm-12 col-md-6 col-lg-3 py-4 px-4 d-flex justify-content-center align-items-center flex-column" align="center">
                 <i class="fa-brands fa-wordpress fa-4x"></i>
                 <h3 class="my-2">WordPress</h3>
                 <span class="mt-2 mb-5">
                     Manage your WordPress websites with ease
                 </span>
                 <a href="#" class="btn btn-primary w-100 mb-2">Get WordPress</a>
-                <small class="bg-warning">Save up to 30%!</small>
+                <small class="bg-warning px-2">Save up to 30%!</small>
             </div>
         </div>
     </div>
@@ -103,7 +106,7 @@
 </div>
 
 {{!-- Plans Start --}}
-<section id="plans">
+<section class="parallax" id="gradient-background">
     <h2 class="text-muted text-center my-5">Plans And Pricing</h2>
     <div class="container-fluid text-center mb-5">
         <div class="row">

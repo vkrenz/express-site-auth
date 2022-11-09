@@ -1,0 +1,38 @@
+/* :root {
+    --primary-color: #fd746c;
+    --secondary-color: #2c3e50;
+} */
+
+#navbar {
+    height: 100px;
+    top: 0;
+    transition: top 0.3s;
+}
+
+.nav-link {
+    color: var(--secondary-color);
+}
+
+.nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+.navbar strong {
+    color: var(--primary-color)
+}
+
+.login-btn {
+    color: var(--primary-color);
+    border-radius: 25px;
+    padding: 5px 15px;
+}
+
+.login-btn:hover {
+    background-color: var(--primary-color);   
+}
+
+.login-btn,
+.login-btn:hover,
+.login-btn:active {
+    border: 1px solid var(--primary-color);
+}
