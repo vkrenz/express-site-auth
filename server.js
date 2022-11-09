@@ -47,8 +47,10 @@ app.use(cookieParser())
 const user = require('./routes/user')
 app.use('/user', user)
 
-// UserDB Import
-const User = require('./routes/user')
+// Articles Router Import
+const articles = require('./routes/articles')
+app.use('/articles', articles)
+
 
 // View Engine Setup
 app.set('view engine', '.hbs')

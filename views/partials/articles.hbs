@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap! | Articles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/article_index.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+{{!-- Navbar Start --}}
+<nav class="navbar fixed-top navbar-expand-lg bg-light shadow-lg" id="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="/img/snap-logo.png" alt="Snap! Logo" height="70px" width="auto">
+            <em><strong>Snap!</strong></em> Web Hosting
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto" id="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/blog">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/articles">Articles</a>
+            </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/user/register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-primary btn-md mx-2 login-btn" href="/user/login">Login</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+</nav>
+{{!-- Navbar End --}}
+
+{{#each articles}}
+    <h1>Title: {{this.name}}</h1>
+    <h3>Author: {{this.author}}</h3>
+    <h3>Author Email: {{this.authorEmail}}</h3>
+    <small>Rating: {{this.rating}}</small>
+    <p>{{this.content}}</p>
+{{/each}}
+
+{{!-- Footer Start --}}
+<ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">
+    <div class="nav-links d-flex my-5">
+        <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/blog">Blog</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/articles">Articles</a>
+        </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/user/register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/user/login">Login</a>
+        </li>
+    </div>
+    <div class="footer">
+        <div class="div mx-auto mb-5" style="width:50px;height:1px;background-color:rgba(0, 0, 0, 0.25);"></div>
+        <p>🔥 Created <strong>by</strong> Victor Krenzel. &copy; <em class="text-danger">2022</em> 🔥</p>
+        <div class="col-auto p-4 text-center">
+            <i class="fa-brands fa-github fa-lg px-2"></i>
+            <i class="fa-brands fa-codepen fa-lg px-2"></i>
+            <i class="fa-brands fa-linkedin fa-lg px-2"></i>
+        </div>
+    </div>
+</ul>
+{{!-- Footer End --}}
+</body>
+</html>
