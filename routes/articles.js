@@ -53,14 +53,13 @@ Article.exists({articleID: 1}, (err, article) => {
 
 router.get('/', (req, res) =>{
     Article.find({/** All Articles */}, (err, articles) => {
-        const articlesArr = 
         if(err) {
             console.log(err)
         }else{
             res.render('articles', {
                 layout: false,
-                articles:
             })
+            console.log(articles)
         }
     })
 })

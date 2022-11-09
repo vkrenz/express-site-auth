@@ -44,11 +44,13 @@
 {{!-- Navbar End --}}
 
 {{#each articles}}
-    <h1>Title: {{this.name}}</h1>
-    <h3>Author: {{this.author}}</h3>
-    <h3>Author Email: {{this.authorEmail}}</h3>
-    <small>Rating: {{this.rating}}</small>
-    <p>{{this.content}}</p>
+    {{#each this}}
+        <h1>Title: {{this.name}}</h1>
+        <h3>Author: {{this.author}}</h3>
+        <h3>Author Email: {{this.authorEmail}}</h3>
+        <small>Rating: {{this.rating}}</small>
+        <p>{{this.content}}</p>
+    {{/each}}
 {{/each}}
 
 {{!-- Footer Start --}}
