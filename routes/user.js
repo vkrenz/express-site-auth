@@ -6,10 +6,11 @@
  * ==> user login
  * ==> user dashboard
  * 
- * DO TODAY
+ * TODO BY END OF THURSDAY...
  * --------
  * ==> Implement articles.js
  * ==> Implement a blog page
+ * ==> Display "recommended articles" in user dash
  * 
  * @date ❄️ November 7, 2022 ❄️
  * @TODO ==> Implement EXPRESS-SESSION
