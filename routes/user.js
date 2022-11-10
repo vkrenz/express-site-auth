@@ -8,16 +8,16 @@
  * 
  * TODO BY END OF THURSDAY...
  * --------
- * ==> Implement articles.js
+ * ==> Implement articles.js (done!)
  * ==> Implement a blog page
  * ==> Display "recommended articles" in user dash
  * 
  * @date ❄️ November 10, 2022 ❄️
- * ==> Articles: Fully Working
- * @TODO ==> Implement EXPRESS-SESSION
- * @TODO ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
- * @TODO ==> Style user dashboard
+ * @todo ==> Implement EXPRESS-SESSION
+ * @todo ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
+ * @todo ==> Style user dashboard (almost done!)
  * Changelog
+ * ==> Articles: Fully Working
  * ==> Fixed: passedUsername 
  * ==> Fixed: confirm_password
  * ==> Cleaned POST code up

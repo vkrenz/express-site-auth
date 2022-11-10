@@ -8,8 +8,7 @@
 * 
 *
 * @date ❄️ November 10, 2022 ❄️
-* ==> Articles: Fully Working
-* @TODO Implement scrollmagic.js
+* @todo Implement scrollmagic.js
 * Changelog
 * ==> Declared static path
 * ==> Added a favicon.ico
