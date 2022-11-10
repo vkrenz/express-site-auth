@@ -59,7 +59,15 @@ app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultView: 'default',
     layoutDir: __dirname + '/views/pages',
-    partialsDir: __dirname + '/views/partials',
+    partialsDir: __dirname + '/views/partials'
+    // helpers: {
+    //     'times': function(n, block) {
+    //         var accum = '';
+    //         for(var i = 0; i < n; ++i)
+    //             accum += block.fn(i);
+    //         return accum;
+    //     }
+    // }
 }))
 
 // Render index.hbs (main route)

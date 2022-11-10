@@ -21,6 +21,7 @@ const Article = mongoose.model("articles", new mongoose.Schema({
         "default": "N/A"
     },
     "rating": {
+        "type": Number,
         "default": 0
     },
     "content": String
@@ -41,9 +42,7 @@ Article.exists({articleID: 1}, (err, article) => {
                 author: "Victor Krenzel",
                 authorEmail: "vkrenzel@myseneca.ca",
                 rating: 5,
-                content: `Facebook is an online social media and social networking service owned by American company Meta Platforms. Founded in 2004 by Mark Zuckerberg with fellow Harvard College students and roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes, its name comes from the face book directories often given to American university students. Membership was initially limited to Harvard students, gradually expanding to other North American universities and, since 2006, anyone over 13 years old. As of July 2022, Facebook claimed 2.93 billion monthly active users,[6] and ranked third worldwide among the most visited websites as of July 2022.[7] It was the most downloaded mobile app of the 2010s.[8]
-                Facebook can be accessed from devices with Internet connectivity, such as personal computers, tablets and smartphones. After registering, users can create a profile revealing information about themselves. They can post text, photos and multimedia which are shared with any other users who have agreed to be their "friend" or, with different privacy settings, publicly. Users can also communicate directly with each other with Facebook Messenger, join common-interest groups, and receive notifications on the activities of their Facebook friends and the pages they follow.
-                The subject of numerous controversies, Facebook has often been criticized over issues such as user privacy (as with the Cambridge Analytica data scandal), political manipulation (as with the 2016 U.S. elections) and mass surveillance.[9] Facebook has also been subject to criticism over psychological effects such as addiction and low self-esteem, and various controversies over content such as fake news, conspiracy theories, copyright infringement, and hate speech.[10] Commentators have accused Facebook of willingly facilitating the spread of such content,[11][12][13][14][15][16] as well as exaggerating its number of users to appeal to advertisers.[17]`
+                content: 'This is some test content...'
             }).save().then(() => {
                 console.log("Test Article Created!")
             })
@@ -56,12 +55,21 @@ router.get('/', (req, res) =>{
         if(err) {
             console.log(err)
         }else{
+            const articlesArr = articles.map(article => ({
+                articleID: article.articleID,
+                name: article.name,
+                author: article.author,
+                authorEmail: article.authorEmail,
+                rating: article.rating,
+                content: article.content
+            }))
+            console.log(articlesArr)
             res.render('articles', {
                 layout: false,
+                articles: articlesArr
             })
-            console.log(articles)
         }
-    })
+    })    
 })
 
 router.get('/:articleID', (req, res) =>{

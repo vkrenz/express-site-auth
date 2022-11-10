@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/css/article_index.css">
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
+<style>
+.articles.container {
+    margin-top: 100px;
+}
+</style>
 <body>
 {{!-- Navbar Start --}}
 <nav class="navbar fixed-top navbar-expand-lg bg-light shadow-lg" id="navbar">
@@ -43,15 +48,15 @@
 </nav>
 {{!-- Navbar End --}}
 
+<div class="articles container">
 {{#each articles}}
-    {{#each this}}
-        <h1>Title: {{this.name}}</h1>
-        <h3>Author: {{this.author}}</h3>
-        <h3>Author Email: {{this.authorEmail}}</h3>
-        <small>Rating: {{this.rating}}</small>
-        <p>{{this.content}}</p>
-    {{/each}}
+    <h1>{{this.name}}</h1>
+    <h2>{{this.author}}</h2>
+    <h2>{{this.authorEmail}}</h2>
+    <small>Rating: {{this.rating}} Stars</small>
+    <p>{{this.content}}</p>
 {{/each}}
+</div>
 
 {{!-- Footer Start --}}
 <ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">
