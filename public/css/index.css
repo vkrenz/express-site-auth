@@ -113,6 +113,23 @@ section {
     font-size: x-large;    
 }
 
+.plans-bg {
+    background-color: #FAF9F6 !important;
+}
+
+.plan {
+    background-color: white;
+}
+
+.plan .fa {
+    color: var(--primary-color);
+}
+
+.price strong{
+    color: red;
+    font-size: xx-large;
+}
+
 @keyframes bg-gradient {
 	0% {
 		background-position: 0% 50%;
