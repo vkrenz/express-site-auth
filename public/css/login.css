@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-body {
+body, html {
     overflow-x: hidden;
 }
 
@@ -47,8 +47,7 @@ input.form-control:focus{
 /** FORM */
 
 .form-signin {
-    max-width: 500px;
-    min-width: 400px;
+    width: 400px;
     margin: 0 auto;
     margin-top: 100px;
     background-color: #FFF;
@@ -76,4 +75,10 @@ input.form-control:focus{
     width: 100% !important;
     height: 40px !important;
     border-radius: 25px !important;
+}
+
+@media only screen and (max-width: 576px) {
+    .form-signin {
+        width: 100%;
+    }
 }

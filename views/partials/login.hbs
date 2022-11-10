@@ -58,46 +58,46 @@
 </nav>
 {{!-- Navbar End --}}
 
-    <div class="container-fluid d-flex justify-content-center align-items-center flex-column" id="gradient-background">
-        <form action="/user/auth/login" method="post" class="form-signin shadow-lg">
-            {{#if err}}
-                {{#each err}}
-                    <div class="alert alert-warning mt-3" id="err" role="alert">
-                        {{this.msg}}
-                    </div>
-                {{/each}}
-            {{/if}}
-            {{#if Err}}
-                <div class="alert alert-warning mt-3" id="Err" role="alert">
-                    {{{Err}}}
+<div class="container-fluid d-flex justify-content-center align-items-center" id="gradient-background">
+    <form action="/user/auth/login" method="post" class="form-signin p-sm-5 shadow-lg">
+        {{#if err}}
+            {{#each err}}
+                <div class="alert alert-warning mt-3" id="err" role="alert">
+                    {{this.msg}}
                 </div>
-            {{/if}}
-            <h2 class="text-center text-muted m-5">LOGIN</h2>
-            <div class="mb-3">
-                <label for="username" class="form-label text-muted">Username</label>
-                <input type="text" class="form-control" name="username" {{#if passedUsername}}value="{{passedUsername}}"{{/if}} placeholder="jdoe">
-                <div class="invalid-feedback">
-                    Please enter your username.
-                </div>
+            {{/each}}
+        {{/if}}
+        {{#if Err}}
+            <div class="alert alert-warning mt-3" id="Err" role="alert">
+                {{{Err}}}
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label text-muted">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="************">
-                <div class="invalid-feedback">
-                    Please enter your password.
-                </div>
+        {{/if}}
+        <h2 class="text-center text-muted m-5">LOGIN</h2>
+        <div class="mb-3">
+            <label for="username" class="form-label text-muted">Username</label>
+            <input type="text" class="form-control" name="username" {{#if passedUsername}}value="{{passedUsername}}"{{/if}} placeholder="jdoe">
+            <div class="invalid-feedback">
+                Please enter your username.
             </div>
-            {{!-- TODO: Implement 'remember-me' --}}
-            <div class="mb-3 form-check mb-4">
-                <label class="form-check-label" for="remember-me">Remember Me</label>
-                <input type="checkbox" class="form-check-input" name="remember-me" value="remember-me">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label text-muted">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="************">
+            <div class="invalid-feedback">
+                Please enter your password.
             </div>
-            <button type="submit" class="btn-hover gradient my-5 shadow-lg" align="center">Sign In</button>
-            <div class="mb-3 form-check">
-                <p class="text-muted" align="center">Don't have an account? <a href="/user/register" style="text-decoration:none" class="link-register">Sign Up</a></p>
-            </div>
-        </form>
-    </div>
+        </div>
+        {{!-- TODO: Implement 'remember-me' --}}
+        <div class="mb-3 form-check mb-4">
+            <label class="form-check-label" for="remember-me">Remember Me</label>
+            <input type="checkbox" class="form-check-input" name="remember-me" value="remember-me">
+        </div>
+        <button type="submit" class="btn-hover gradient my-5 shadow-lg" align="center">Sign In</button>
+        <div class="mb-3 form-check">
+            <p class="text-muted" align="center">Don't have an account? <a href="/user/register" style="text-decoration:none" class="link-register">Sign Up</a></p>
+        </div>
+    </form>
+</div>
 
 {{!-- Footer Start --}}
 <ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">
