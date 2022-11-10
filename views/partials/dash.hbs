@@ -5,83 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SNAP | @{{username}}'s Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    {{!-- Bootstrap CDN --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    {{!-- JQuery CDN --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{!-- Bootstrap JS CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    {{!-- Font Awesome CDN --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {{!-- Custom CSS --}}
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/dash.css">
+    {{!-- Custom JS --}}
+    <script src="/js/navbar.js"></script>
 </head>
-<style>
-:root {
-    --btn-gradient: linear-gradient(to right, #25aae1, #40e495, #25aae1);
-    --bg-gradient: linear-gradient(45deg, #FDB99B, #ffff1c, #67b26f, #4ca2cd, #3B4371, #2F0743);
-}
-
-* {
-    box-sizing: border-box;
-}
-
-#left-panel,
-#right-panel {
-
-}
-
-#bottom-panel {
-    width: 100vw;
-    padding: 0;
-}
-
-#info-container {
-    margin-top: 250px;
-}
-
-#background {
-    width: 100vw !important;
-    height: 100vh !important;
-    background-color: white;
-}
-
-#user-background {
-    background-color: #313131;
-    height: 250px;
-}
-
-.crop {
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 10px solid white;
-}
-
-.crop img {
-    height: 100%;
-    width: auto;
-}
-
-.name-container {
-    margin-top: 100px;
-}
-
-#info-col {
-    width: 100%;
-}
-
-#pfp {
-    margin-top: 125px;
-}
-
-.text-muted {
-    margin-bottom: 0;
-}
-</style>
 <body>
+
 {{!-- Navbar Start --}}
 <nav class="navbar fixed-top navbar-expand-lg bg-light shadow-lg" id="navbar">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="/img/snap-logo.png" alt="Snap! Logo" height="70px" width="auto">
-            <em><strong>Snap!</strong></em> Web Hosting
+            <span class="navbar-brand mb-0 h1">
+                <em><strong>Snap!</strong></em> Web Hosting
+            </span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -89,13 +36,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto" id="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                <a class="nav-link" href="/home">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/blog">Blog</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/articles/read_more">Articles</a>
+                <a class="nav-link" href="/articles">Articles</a>
             </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/user/register">Register</a>
@@ -108,8 +55,9 @@
     </div>
 </nav>
 {{!-- Navbar End --}}
-    <div class="container-fluid" id="background">
-        {{#if username}}
+
+<div class="container-fluid" id="background">
+    {{#if username}}
         <div class="row justify-content-center" id="user-background">
             <div class="col-auto position-absolute" id="left-panel">
                 <div class="row justify-content-center mt-4">
@@ -149,53 +97,46 @@
                 </div>
             </div>
         </div>
-        {{/if}}
-        {{#else}}
+    {{/if}}
+</div>
 
-        {{/else}}
-    </div>
 {{!-- Footer Start --}}
 <ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">
     <div class="nav-links d-flex my-5">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+            <a class="nav-link" href="/home">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/blog">Blog</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/articles/read_more">Articles</a>
+            <a class="nav-link" href="/articles">Articles</a>
         </li>
             <li class="nav-item">
             <a class="nav-link" href="/user/register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/user/login">Login</a>
+            <a class="nav-link" href="/home">Log Out</a>
         </li>
     </div>
     <div class="footer">
         <div class="div mx-auto mb-5" style="width:50px;height:1px;background-color:rgba(0, 0, 0, 0.25);"></div>
         <p>🔥 Created <strong>by</strong> Victor Krenzel. &copy; <em class="text-danger">2022</em> 🔥</p>
-        <div class="col-auto p-4 text-center">
-            <i class="fa-brands fa-github fa-lg px-2"></i>
-            <i class="fa-brands fa-codepen fa-lg px-2"></i>
-            <i class="fa-brands fa-linkedin fa-lg px-2"></i>
+        <div class="socials col-auto p-4 text-center">
+            <a href="https://github.com/vkrenz" target="_blank">
+                <i class="fa-brands fa-github fa-lg px-2"></i>
+            </a>
+            <a href="https://codepen.io/vkrenzel" target="_blank">
+                <i class="fa-brands fa-codepen fa-lg px-2"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/vkrenz/" target="_blank">
+                <i class="fa-brands fa-linkedin fa-lg px-2"></i>
+            </a>
+            
         </div>
     </div>
 </ul>
 {{!-- Footer End --}}
-<script>
-    // Navbar Scrolling
-    var prevScrollpos = window.pageYOffset
-    window.onscroll = () => {
-    var currentScrollPos = window.pageYOffset
-    if (prevScrollpos > currentScrollPos) {
-        document.getElementById("navbar").style.top = "0"
-    } else {
-        document.getElementById("navbar").style.top = "-80px"
-    }
-    prevScrollpos = currentScrollPos
-    }
-</script>
+
 </body>
 </html>

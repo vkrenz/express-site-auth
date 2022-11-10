@@ -1,0 +1,114 @@
+:root {
+    --btn-gradient: linear-gradient(to right, #25aae1, #40e495, #25aae1);
+    --bg-gradient: linear-gradient(-45deg, #67b26f, #4ca2cd, #3B4371);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#gradient-background {
+    width: 100vw !important;
+    height: 100vh !important;
+	background: var(--bg-gradient);
+	background-size: 400% 400%;
+	animation: bg-gradient 15s ease infinite;
+}
+
+.required:after {
+    content:" *";
+    color: red;
+}
+
+input.form-control {
+    border:0;
+	border-radius:0;
+    border-bottom:1px solid #EBEBEB;
+}
+
+/** Override Chrome's Autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0 30px #EEE inset !important;
+}
+
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px hsla(198, 76%, 51%, 0.1) inset !important;
+}
+
+input.form-control:focus{
+    border-bottom: 2px solid#25aae1;	
+    box-shadow:none;
+    outline:0;
+    background-color:#EBEBEB;
+}
+
+.form-register .form-control {
+    padding: 10px;
+}
+
+.form-register {
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: #FFF;
+    padding: 15px 40px 50px;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+}
+
+.btn-hover {
+    width: 50%;
+    float: left;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFF;
+    cursor: pointer;
+    height: 40px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 25px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.form-register .link-login:hover {
+    color: #25aae1 !important;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.gradient {
+    background-image: var(--btn-gradient)
+}
+
+@keyframes bg-gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
