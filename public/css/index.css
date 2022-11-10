@@ -86,6 +86,33 @@ section {
     transition: 0.2s all ease-in;
 }
 
+.carousel-caption.heading {
+    top: 45px;
+    bottom: auto;
+    text-align: center !important;
+}
+
+.carousel-caption {
+    text-align: left !important;
+}
+
+.card-text {
+    font-size: large;
+    font-style: italic;
+    line-height: 1.8em;
+    color: #ddd;
+}
+
+.card-text::before {
+    content: '“';
+    font-size: x-large;
+}
+
+.card-text::after {
+    content: '”';
+    font-size: x-large;    
+}
+
 @keyframes bg-gradient {
 	0% {
 		background-position: 0% 50%;

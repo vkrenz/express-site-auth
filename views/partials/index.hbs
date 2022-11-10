@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/gradient-button.css">
+    {{!-- Custom JS --}}
+    <script src="/js/navbar.js"></script>
 </head>
 <body>
     
@@ -58,17 +60,16 @@
 {{!-- Header Start --}}
 <div class="background parallax" id="gradient-background">
     <div class="header-cont container d-flex justify-content-center align-items-center flex-column">
-        <h1>Web Hosting. <em>Effortlessly</em>.</h1>
+        <h1 class="display-6">Web Hosting. <em>Effortlessly</em>.</h1>
         <a href="#plans" class="cta btn-hover gradient mt-5 shadow-lg text-decoration-none">See Our Plans</a>
+        <span class="text-light mt-4">Starting at only <strong>$3.89/mo.</strong></span>
     </div>
 </div>
 {{!-- Header End --}}
 
-{{!-- Main Container --}}
-<div class="container pt-4">
-
-<!-- About Us Section -->
-<div class="section about-us">
+<div class="container">
+<!-- Services Section -->
+<div class="services">
     <div class="container">
         <div class="row mt-4 py-5">
             <div class="col-sm-12 col-md-6 col-lg-3 py-4 px-4 d-flex justify-content-center align-items-center flex-column" align="center">
@@ -110,17 +111,91 @@
         </div>
     </div>
 </div>
-{{!-- About Us Section End --}}
-
-{{!-- Main Container End --}}
+{{!-- Services Section End --}}
 </div>
 
+{{!-- Carousel --}}
+<div id="carouselExampleCaptions" class="carousel slide d-none d-md-block" data-bs-ride="false">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <img src="/img/bg-1.jpg" class="d-block w-100" alt="...">
+    <h2 class="carousel-caption heading d-none d-lg-block">
+        Trusted by over 6,000<br />Canadian Small Businesses
+    </h2>
+    <div class="carousel-item active">
+      <div class="carousel-caption d-none d-md-block">
+        <div class="person">
+            <strong class="text-left mb-2 display-6">ELLA TSANG</strong>
+        </div>
+        <div class="rating mb-4">
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+        </div>
+        <p class="card-text mb-4">
+            I have nothing but AMAZING experiences with Snap! live chat support. I started my website making journey with Snap! and it has always been so smooth to get assistance… I will continue to recommend you guys to my friends and clients.
+        </p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="carousel-caption d-none d-md-block">
+        <div class="person">
+            <strong class="text-left mb-2 display-6">RICHARD E. WARD</strong>
+        </div>
+        <div class="rating mb-4">
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+        </div>
+        <p class="card-text mb-4">
+            I recently moved my web hosting to Snap! and I would happily give them 10 Stars. Apart from providing me with a solid technical environment, they have provided me with absolutely First Class, friendly, informative and fast support.
+        </p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="carousel-caption d-none d-md-block">
+        <div class="person">
+            <strong class="text-left mb-2 display-6">JESSY MARIA</strong>
+        </div>
+        <div class="rating mb-4">
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+            <i class="fa-solid fa-star fa-md" style="color:yellow"></i>
+        </div>
+        <p class="card-text mb-4">
+            Incredible customer service! Every time I get stuck, I know I can ask for help and receive a fast and very helpful response. I would highly recommend Snap! to anyone, including beginners to the web hosting world.
+        </p>
+      </div>
+    </div>
+  </div>
+  {{!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button> --}}
+</div>
+{{!-- Carousel End --}}
+
+<div class="container">
 {{!-- Plans Start --}}
-<section class="parallax" id="plans">
-    <h2 class="text-muted text-center my-5">Plans And Pricing</h2>
-    <div class="container-fluid text-center mb-5">
+<section class="py-5" id="plans">
+    <h2 class="text-center my-5 display-6">Plans And Pricing</h2>
+    <div class="container text-center mb-5">
+    <hr />
         <div class="row">
-            <div class="col">
+            <div class="col p-4 mt-5 mx-4 border rounded">
                 <h2>Go</h2>
                 <p>
                     Affordable plan, great for starting a new web project.
@@ -139,7 +214,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col p-4 mt-5 mx-4 border rounded">
                 <h2>Go</h2>
                 <p>
                     Affordable plan, great for starting a new web project.
@@ -153,12 +228,12 @@
                     <strong class="bg-warning">Save 99%</strong>
                 </small>
                 <div class="cta">
-                    <a href="#" class="btn btn-lg btn-primary">
+                    <a href="#" class="btn btn-lg btn-primary mt-3">
                         Add To Cart
                     </a>
                 </div>
             </div>
-            <div class="col">
+            <div class="col p-4 mt-5 mx-4 border rounded">
                 <h2>Go</h2>
                 <p>
                     Affordable plan, great for starting a new web project.
@@ -181,6 +256,7 @@
     </div>
 </section>
 {{!-- Plans End --}}
+</div>
 
 {{!-- Footer Start --}}
 <ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">
@@ -218,27 +294,6 @@
         </div>
     </div>
 </ul>
-{{!-- Footer End --}}
-
-{{!-- Stellar JS --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stellar.js/0.6.1/jquery.stellar.min.js" integrity="sha512-MZiEKWRoqHmTsaur2/0bTQaOT5DqmnMDWuXoYXgNwFzCq+J2rQRIa4uVOmkL7SnIIhis6V4IcPnhqKxgOt8zDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-{{!-- JQuery --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script>
-    // Navbar Scrolling
-    var prevScrollpos = window.pageYOffset
-    window.onscroll = () => {
-    var currentScrollPos = window.pageYOffset
-    if (prevScrollpos > currentScrollPos) {
-        document.getElementById("navbar").style.top = "0"
-    } else {
-        document.getElementById("navbar").style.top = "-80px"
-    }
-    prevScrollpos = currentScrollPos
-    }
-</script>
-    
+{{!-- Footer End --}}   
 </body>
 </html>
