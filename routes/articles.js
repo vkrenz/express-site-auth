@@ -55,24 +55,6 @@ Article.exists({articleID: 1}, (err, article) => {
     }
 })
 
-// Conver Articles obj ==> Array
-var articlesArr = []
-Article.find({/** All Articles */}, (err, articles) => {
-    if(err) {
-        console.log(err)
-    }else{
-        articlesArr = articles.map(article => ({
-            articleID: article.articleID,
-            name: article.name,
-            author: article.author,
-            authorEmail: article.authorEmail,
-            rating: article.rating,
-            content: article.content,
-            articleImgURL: article.articleImgURL
-        }))
-    }
-})
-
 // new Article({
 //     articleID: 4,
 //     name: "Blockchain Facts: What Is It, How It Works, and How It Can Be Used",
@@ -84,11 +66,29 @@ Article.find({/** All Articles */}, (err, articles) => {
 // }).save()
 
 router.get('/', (req, res) =>{
-    // Displays all articles   
-    res.render('articles', {
-        layout: false,
-        articles: articlesArr,
-    })
+    // Displays all articles 
+    // Conver Articles obj ==> Array
+    var articlesArr = []
+    Article.find({/** All Articles */}, (err, articles) => {
+        if(err) {
+            console.log(err)
+        }else{
+            articlesArr = articles.map(article => ({
+                articleID: article.articleID,
+                name: article.name,
+                author: article.author,
+                authorEmail: article.authorEmail,
+                rating: article.rating,
+                content: article.content,
+                articleImgURL: article.articleImgURL
+            }))
+            // Then
+            res.render('articles', {
+                layout: false,
+                articles: articlesArr,
+            })
+        }
+    })  
 })
 
 router.get('/read/:articleID', (req, res) =>{
