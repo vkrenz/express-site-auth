@@ -12,7 +12,8 @@
  * ==> Implement a blog page
  * ==> Display "recommended articles" in user dash
  * 
- * @date ❄️ November 7, 2022 ❄️
+ * @date ❄️ November 10, 2022 ❄️
+ * ==> Articles: Fully Working
  * @TODO ==> Implement EXPRESS-SESSION
  * @TODO ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
  * @TODO ==> Style user dashboard

@@ -23,7 +23,7 @@ const Article = mongoose.model("articles", new mongoose.Schema({
     "author": String,
     "authorEmail": {
         "type": String,
-        "default": "N/A"
+        "default": null
     },
     "rating": {
         "type": Number,
@@ -55,7 +55,18 @@ Article.exists({articleID: 1}, (err, article) => {
     }
 })
 
+// new Article({
+//     articleID: 3,
+//     name: "What is Meta? The meaning behind the social metaverse company",
+//     author: "Gemma Ryles",
+//     authorEmail: null,
+//     rating: 3,
+//     content: "Meta describes itself as a company that builds technologies that help people connect and find communities, as well as grow businesses. Meta has been marketing itself as a social technology company, offering services like virtual reality (VR), augmented reality (AR) and Smart Glasses, the latter is the latest endeavour it’s waded into. Meta has five core principles. They are giving people a voice: building connections across communities, making technology accessible, keeping people safe by protecting privacy and promoting economic opportunity for business to create jobs for a better economy. These principles are intended to ensure that Meta is a safe place to reside in for all users, promoting and sharing ideas and thoughts in an open environment. Meta is currently building up a VR social platform called Horizon Worlds. To learn even more about Horizon Worlds, you can check out our explainer. Horizon Worlds is a social hub that you can experience via VR and includes several destinations within the Metaverse, all of which have distinct features and goals.",
+//     articleImgURL: "https://www.trustedreviews.com/wp-content/uploads/sites/54/2021/11/Meta-image-920x518.png"
+// }).save()
+
 router.get('/', (req, res) =>{
+    // Displays all articles
     Article.find({/** All Articles */}, (err, articles) => {
         if(err) {
             console.log(err)
@@ -78,15 +89,22 @@ router.get('/', (req, res) =>{
     })    
 })
 
-router.get('/article/:articleID', (req, res) =>{
-    const articleID = parseInt(req.params.articleNumber)
+router.get('/read/:articleID', (req, res) =>{
+    const articleID = parseInt(req.params.articleID)
     Article.findOne({articleID: articleID}, (err, article) => {
         if(err) {
             console.log(err)
         }else{
-            res.render('article', {
+            var stars = ''
+            for(var i = 0; i < article.rating; i++) {
+                stars += '<i class="fa-solid fa-star"></i>'
+            }
+            res.render('read', {
                 layout: false,
-                article: article,
+                name: article.name,
+                author: article.author,
+                rating: stars,
+                content: article.content
             })
         }
     }) 

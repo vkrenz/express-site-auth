@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snap! | Articles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/article_index.css">
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <style>
 .articles.container {
-    margin-top: 100px;
+    margin-top: 200px;
+    margin-bottom: 100px;
 }
 </style>
 <body>
@@ -48,15 +50,16 @@
 </nav>
 {{!-- Navbar End --}}
 
+
 <div class="articles container">
-{{#each article}}
-    <h1>{{this.name}}</h1>
-    <h2>{{this.author}}</h2>
-    <h2>{{this.authorEmail}}</h2>
-    <small>Rating: {{this.rating}} Stars</small>
-    <p>{{this.content}}</p>
-{{/each}}
+    <a href="/articles" class="text-muted"><i class="fa-solid fa-chevron-left fa-xl mb-5"></i></a>
+    <h1>{{name}}</h1>
+    <h3 class="text-muted">{{author}}</h3>
+    {{#if authorEmail}}<h3 class="text-muted">{{this.authorEmail}}</h3>{{/if}}
+    <small>{{{rating}}}</small>
+    <p class="pt-5">{{content}}</p>
 </div>
+
 
 {{!-- Footer Start --}}
 <ul class="nav d-flex justify-content-center align-items-center flex-column shadow-lg">

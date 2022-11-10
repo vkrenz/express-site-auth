@@ -7,8 +7,8 @@
 * ==> Handles all the general app settings
 * 
 *
-* @date ❄️ November 7, 2022 ❄️
-* @TODAY ARTICLE.JS PAGE
+* @date ❄️ November 10, 2022 ❄️
+* ==> Articles: Fully Working
 * @TODO Implement scrollmagic.js
 * Changelog
 * ==> Declared static path

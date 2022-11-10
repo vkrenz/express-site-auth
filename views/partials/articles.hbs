@@ -11,7 +11,8 @@
 </head>
 <style>
 .articles.container {
-    margin-top: 100px;
+    margin-top: 200px;
+    margin-bottom: 100px;
 }
 </style>
 <body>
@@ -49,31 +50,30 @@
 {{!-- Navbar End --}}
 
 <div class="articles container">
-{{#each articles}}
-
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{articleImgURL}}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{this.name}}</h5>
-    <span style="
-    display:inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 25ch;"
-    >
-        {{this.content}}
-    </span>    
-    <a href="/articles/{{this.articleID}}" class="btn btn-primary">Read More</a>
-  </div>
+    <h1 class="text-muted display-4">Articles</h1>
+<div class="row">
+    {{#each articles}}
+    <div class="col-sm-12 col-lg-4 d-flex align-items-stretch">
+        <div class="card my-4" style="width: 18rem;">
+        <img class="card-img-top" src="{{articleImgURL}}" alt="Card image cap">
+        <div class="card-body d-flex flex-column content-start justify-content-around">
+            <h5 class="card-title">{{this.name}}</h5>
+            <small class="text-muted">{{this.author}}</small>
+            <br>
+            <span style="
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            ">
+                {{this.content}}
+            </span>    
+            <a href="/articles/read/{{this.articleID}}" class="btn btn-primary w-100 mt-2">Read More</a>
+        </div>
+        </div>
+    </div>
+    {{/each}}
 </div>
-{{!-- 
-    <h1>{{this.name}}</h1>
-    <h2>{{this.author}}</h2>
-    <h2>{{this.authorEmail}}</h2>
-    <small>Rating: {{this.rating}} Stars</small> --}}
-
-{{/each}}
 </div>
 
 {{!-- Footer Start --}}
