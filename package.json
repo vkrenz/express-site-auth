@@ -4,7 +4,7 @@
   "description": "Web Hosting Canada",
   "main": "server.js",
   "scripts": {
-    "test": "nodemon --inspect server.js"
+    "test": "nodemon server.js"
   },
   "keywords": [],
   "author": "Victor Krenzel (102446176)",

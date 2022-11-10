@@ -4,8 +4,13 @@ const router = require('express').Router()
 const mongoose = require('mongoose')
 const url = "mongodb+srv://dbVkrenzel:QnzXuxUfGkRec92j@senecaweb.53svswz.mongodb.net/web322"
 mongoose.connect(url)
+const defaultArticleImgURL = "https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
 // MongoDB - Define Article Schema
 const Article = mongoose.model("articles", new mongoose.Schema({
+    "articleImgURL": {
+        "type": String,
+        "default": defaultArticleImgURL
+    },
     "articleID": {
         "type": Number,
         "unique": true
@@ -61,23 +66,30 @@ router.get('/', (req, res) =>{
                 author: article.author,
                 authorEmail: article.authorEmail,
                 rating: article.rating,
-                content: article.content
+                content: article.content,
+                articleImgURL: article.articleImgURL
             }))
-            console.log(articlesArr)
+            // console.log(articlesArr)
             res.render('articles', {
                 layout: false,
-                articles: articlesArr
+                articles: articlesArr,
             })
         }
     })    
 })
 
-router.get('/:articleID', (req, res) =>{
+router.get('/article/:articleID', (req, res) =>{
     const articleID = parseInt(req.params.articleNumber)
-    res.render('article', {
-        articleNumber: req.params.articleNumber,
-        layout: false
-    })
+    Article.findOne({articleID: articleID}, (err, article) => {
+        if(err) {
+            console.log(err)
+        }else{
+            res.render('article', {
+                layout: false,
+                article: article,
+            })
+        }
+    }) 
 })
 
 module.exports = router

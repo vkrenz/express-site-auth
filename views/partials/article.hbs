@@ -49,30 +49,12 @@
 {{!-- Navbar End --}}
 
 <div class="articles container">
-{{#each articles}}
-
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="{{articleImgURL}}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{this.name}}</h5>
-    <span style="
-    display:inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 25ch;"
-    >
-        {{this.content}}
-    </span>    
-    <a href="/articles/{{this.articleID}}" class="btn btn-primary">Read More</a>
-  </div>
-</div>
-{{!-- 
+{{#each article}}
     <h1>{{this.name}}</h1>
     <h2>{{this.author}}</h2>
     <h2>{{this.authorEmail}}</h2>
-    <small>Rating: {{this.rating}} Stars</small> --}}
-
+    <small>Rating: {{this.rating}} Stars</small>
+    <p>{{this.content}}</p>
 {{/each}}
 </div>
 
