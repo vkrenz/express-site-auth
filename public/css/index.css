@@ -20,11 +20,6 @@
 	animation: bg-gradient 15s ease infinite;
 }
 
-.fa-solid,
-.fa-brands {
-    color: var(--primary-color);
-}
-
 .header-cont {
     margin-top: 100px;
 }
@@ -64,6 +59,31 @@ section {
 .background h1 {
     color: white;
     font-weight: 200;
+}
+
+.socials a {
+    color: white;
+    text-decoration: none;
+}
+
+.fa-solid,
+.fa-brands {
+    color: var(--primary-color);
+}
+
+.socials .fa-solid,
+.socials .fa-brands {
+    color: var(--secondary-color);
+    transition: 0.2s all ease-out;
+}
+
+.socials .fa-solid:hover,
+.socials .fa-solid:active,
+.socials .fa-brands:hover,
+.socials .fa-brands:active {
+    color: var(--primary-color);
+    transform: rotate(-45deg);
+    transition: 0.2s all ease-in;
 }
 
 @keyframes bg-gradient {

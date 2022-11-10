@@ -50,7 +50,6 @@ app.use('/user', user)
 const articles = require('./routes/articles')
 app.use('/articles', articles)
 
-
 // View Engine Setup
 app.set('view engine', '.hbs')
 app.set('views', __dirname + '/views/partials')

@@ -55,38 +55,40 @@ Article.exists({articleID: 1}, (err, article) => {
     }
 })
 
+// Conver Articles obj ==> Array
+var articlesArr = []
+Article.find({/** All Articles */}, (err, articles) => {
+    if(err) {
+        console.log(err)
+    }else{
+        articlesArr = articles.map(article => ({
+            articleID: article.articleID,
+            name: article.name,
+            author: article.author,
+            authorEmail: article.authorEmail,
+            rating: article.rating,
+            content: article.content,
+            articleImgURL: article.articleImgURL
+        }))
+    }
+})
+
 // new Article({
-//     articleID: 3,
-//     name: "What is Meta? The meaning behind the social metaverse company",
-//     author: "Gemma Ryles",
+//     articleID: 4,
+//     name: "Blockchain Facts: What Is It, How It Works, and How It Can Be Used",
+//     author: "ADAM HAYES",
 //     authorEmail: null,
-//     rating: 3,
-//     content: "Meta describes itself as a company that builds technologies that help people connect and find communities, as well as grow businesses. Meta has been marketing itself as a social technology company, offering services like virtual reality (VR), augmented reality (AR) and Smart Glasses, the latter is the latest endeavour it’s waded into. Meta has five core principles. They are giving people a voice: building connections across communities, making technology accessible, keeping people safe by protecting privacy and promoting economic opportunity for business to create jobs for a better economy. These principles are intended to ensure that Meta is a safe place to reside in for all users, promoting and sharing ideas and thoughts in an open environment. Meta is currently building up a VR social platform called Horizon Worlds. To learn even more about Horizon Worlds, you can check out our explainer. Horizon Worlds is a social hub that you can experience via VR and includes several destinations within the Metaverse, all of which have distinct features and goals.",
-//     articleImgURL: "https://www.trustedreviews.com/wp-content/uploads/sites/54/2021/11/Meta-image-920x518.png"
+//     rating: 4,
+//     content: "What Is a Blockchain?A blockchain is a distributed database or ledger that is shared among the nodes of a computer network. As a database, a blockchain stores information electronically in digital format. Blockchains are best known for their crucial role in cryptocurrency systems, such as Bitcoin, for maintaining a secure and decentralized record of transactions. The innovation with a blockchain is that it guarantees the fidelity and security of a record of data and generates trust without the need for a trusted third party.<br>One key difference between a typical database and a blockchain is how the data is structured. A blockchain collects information together in groups, known as blocks, that hold sets of information. Blocks have certain storage capacities and, when filled, are closed and linked to the previously filled block, forming a chain of data known as the blockchain. All new information that follows that freshly added block is compiled into a newly formed block that will then also be added to the chain once filled.<br>A database usually structures its data into tables, whereas a blockchain, as its name implies, structures its data into chunks (blocks) that are strung together. This data structure inherently makes an irreversible timeline of data when implemented in a decentralized nature. When a block is filled, it is set in stone and becomes a part of this timeline. Each block in the chain is given an exact timestamp when it is added to the chain.",
+//     articleImgURL: "https://www.investopedia.com/thmb/wuuss_5lSKqGckNngtP1__7qEk4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Blockchain_final-086b5b7b9ef74ecf9f20fe627dba1e34.png"
 // }).save()
 
 router.get('/', (req, res) =>{
-    // Displays all articles
-    Article.find({/** All Articles */}, (err, articles) => {
-        if(err) {
-            console.log(err)
-        }else{
-            const articlesArr = articles.map(article => ({
-                articleID: article.articleID,
-                name: article.name,
-                author: article.author,
-                authorEmail: article.authorEmail,
-                rating: article.rating,
-                content: article.content,
-                articleImgURL: article.articleImgURL
-            }))
-            // console.log(articlesArr)
-            res.render('articles', {
-                layout: false,
-                articles: articlesArr,
-            })
-        }
-    })    
+    // Displays all articles   
+    res.render('articles', {
+        layout: false,
+        articles: articlesArr,
+    })
 })
 
 router.get('/read/:articleID', (req, res) =>{
@@ -96,8 +98,13 @@ router.get('/read/:articleID', (req, res) =>{
             console.log(err)
         }else{
             var stars = ''
+            var maxStars = 5
             for(var i = 0; i < article.rating; i++) {
                 stars += '<i class="fa-solid fa-star"></i>'
+                maxStars -= 1
+            }
+            for(var i = 0; i < maxStars; i++) {
+                stars += '<i class="fa-regular fa-star"></i>'
             }
             res.render('read', {
                 layout: false,

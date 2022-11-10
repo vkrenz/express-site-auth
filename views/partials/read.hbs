@@ -53,11 +53,12 @@
 
 <div class="articles container">
     <a href="/articles" class="text-muted"><i class="fa-solid fa-chevron-left fa-xl mb-5"></i></a>
-    <h1>{{name}}</h1>
+    <h1 class="display-5">{{name}}</h1>
     <h3 class="text-muted">{{author}}</h3>
     {{#if authorEmail}}<h3 class="text-muted">{{this.authorEmail}}</h3>{{/if}}
     <small>{{{rating}}}</small>
-    <p class="pt-5">{{content}}</p>
+    <hr />
+    <p class="pt-5">{{{content}}}</p>
 </div>
 
 

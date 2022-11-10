@@ -4,7 +4,7 @@
 }
 
 #navbar {
-    height: 100px;
+    /* height: 100px; */
     top: 0;
     transition: top 0.3s;
 }
@@ -42,4 +42,29 @@
 
 .login-btn.active {
     background-color: var(--primary-color);
+}
+
+/** Override Bootstrap @media */
+@media only screen and (max-width: 992px) {
+    .nav-link,
+    .nav-link.active {
+        text-align: center !important;
+    }
+
+    .nav-item {
+        margin: 0 auto;
+    }
+
+    .login-btn {
+        margin: 20px 0;
+    }
+
+    .navbar-brand {
+        margin: 0 auto;
+    }
+
+    .navbar-toggler,
+    .navbar-toggler.collapsed {
+        border: none;
+    }
 }
