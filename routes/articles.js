@@ -34,26 +34,26 @@ const Article = mongoose.model("articles", new mongoose.Schema({
 )
 
 // Create a test article
-Article.exists({articleID: 1}, (err, article) => {
-    if(err) {
-        console.log(err)
-    }else{
-        console.log(article)
-        if(!article) {
-            console.log("Test Article not found! Creating one...")
-            const testArticle = new Article({
-                articleID: 1,
-                name: "This Is A Test Article! Read Now!",
-                author: "Victor Krenzel",
-                authorEmail: "vkrenzel@myseneca.ca",
-                rating: 5,
-                content: 'This is some test content...'
-            }).save().then(() => {
-                console.log("Test Article Created!")
-            })
-        }
-    }
-})
+// Article.exists({articleID: 1}, (err, article) => {
+//     if(err) {
+//         console.log(err)
+//     }else{
+//         console.log(article)
+//         if(!article) {
+//             console.log("Test Article not found! Creating one...")
+//             const testArticle = new Article({
+//                 articleID: 1,
+//                 name: "This Is A Test Article! Read Now!",
+//                 author: "Victor Krenzel",
+//                 authorEmail: "vkrenzel@myseneca.ca",
+//                 rating: 5,
+//                 content: 'This is some test content...'
+//             }).save().then(() => {
+//                 console.log("Test Article Created!")
+//             })
+//         }
+//     }
+// })
 
 // new Article({
 //     articleID: 4,
@@ -67,7 +67,7 @@ Article.exists({articleID: 1}, (err, article) => {
 
 router.get('/', (req, res) =>{
     // Displays all articles 
-    // Conver Articles obj ==> Array
+    // Convert Articles obj ==> Array
     var articlesArr = []
     Article.find({/** All Articles */}, (err, articles) => {
         if(err) {
