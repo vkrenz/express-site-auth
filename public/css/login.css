@@ -49,7 +49,8 @@ input.form-control:focus{
 .form-signin {
     width: 400px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 150px;
+    margin-bottom: 50px;
     background-color: #FFF;
     padding: 15px 40px 50px;
     border: 1px solid #E5E5E5;
@@ -80,5 +81,7 @@ input.form-control:focus{
 @media only screen and (max-width: 576px) {
     .form-signin {
         width: 100%;
+        margin-top: 115px;
+        margin-bottom: 15px;
     }
 }

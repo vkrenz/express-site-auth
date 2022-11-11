@@ -1,6 +1,4 @@
 #gradient-background {
-    width: 100vw !important;
-    height: 100vh !important;
 	background: var(--bg-gradient);
 	background-size: 400% 400%;
 	animation: bg-gradient 15s ease infinite;

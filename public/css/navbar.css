@@ -44,6 +44,25 @@
     background-color: var(--primary-color);
 }
 
+.socials a {
+    text-decoration: none;
+}
+
+.socials .fa-solid,
+.socials .fa-brands {
+    color: var(--secondary-color);
+    transition: 0.2s all ease-out;
+}
+
+.socials .fa-solid:hover,
+.socials .fa-solid:active,
+.socials .fa-brands:hover,
+.socials .fa-brands:active {
+    color: var(--primary-color);
+    transform: rotate(-45deg);
+    transition: 0.2s all ease-in;
+}
+
 /** Override Bootstrap @media */
 @media only screen and (max-width: 992px) {
     .nav-link,
