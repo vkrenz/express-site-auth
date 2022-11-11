@@ -1,6 +1,8 @@
 
 # Snap! Web Hosting
 
+## Seneca College WEB322 Assignment 4
+
 ##### Created using ***HTML/CSS***, ***Javascript***, ***Handlebars***
 
 ##### User authentication handled via ***MongoDB***
