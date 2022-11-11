@@ -3,3 +3,9 @@
     height: 10vw;
     object-fit: cover;
 }
+
+@media only screen and (max-width: 576px) {
+    .card-img-top {
+        height: 45vw;
+    }
+}
