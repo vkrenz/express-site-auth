@@ -67,15 +67,16 @@
 {{!-- Navbar End --}}
 
 <div class="blog container">
-    <h1 class="text-muted display-6 text-center">Blog</h1>
-    <hr />
+    {{!-- <h1 class="text-muted display-6 text-center">Blog</h1>
+    <hr /> --}}
     {{!-- <div class="container">
         <img src="https://cdni.iconscout.com/illustration/premium/thumb/under-construction-building-site-4224364-3518829.png" style="width:300px; height: auto;" class="rounded mx-auto d-block mt-5" alt="">
     </div> --}}
         {{#each entries}}
             {{#if this.isHero}}
-                <div class="card">
+                <div class="card shadow-lg">
                     <h5 class="card-header">Featured</h5>
+                    <img class="card-img-top shadow-lg rounded-0" src="{{blogImgURL}}" alt="Card image cap">
                     <div class="card-body">
                         <div class="mb-2">
                             <small class="text-uppercase bg-info rounded-pill px-2 py-1 mb-2">{{this.category}}</small>
@@ -86,27 +87,17 @@
                 </div>
             {{else}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-4 col-lg-3 d-flex align-items-stretch">
-                        <div class="card my-4 mx-auto" style="width: 18rem;">
-                            <img class="card-img-top" src="{{blogImgURL}}" alt="Card image cap">
+                    <div class="col-sm-12  d-flex align-items-stretch">
+                        <div class="card my-4 mx-auto shadow-lg">
+                            <img class="card-img-top shadow-lg" src="{{blogImgURL}}" alt="Card image cap">
                             <div class="card-body">
                                 <div class="mb-2">
                                     <small class="text-uppercase bg-info rounded-pill px-2 py-1 mb-2">{{this.category}}</small>
                                 </div>
-                                <h5 class="card-title" style="
-                                display: -webkit-box;
-                                overflow: hidden;
-                                -webkit-line-clamp: 2;
-                                -webkit-box-orient: vertical;
-                                ">
+                                <h5 class="card-title">
                                     {{this.name}}
                                 </h5>
-                                <span style="
-                                display: -webkit-box;
-                                overflow: hidden;
-                                -webkit-line-clamp: 3;
-                                -webkit-box-orient: vertical;
-                                ">
+                                <span>
                                     {{this.content}}
                                 </span>    
                             </div>
