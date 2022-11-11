@@ -111,8 +111,12 @@ section {
 }
 
 .price strong{
-    color: red;
+    color: var(--primary-color);
     font-size: xx-large;
+}
+
+.fa-solid.fa-star {
+    color: var(--primary-color) !important;
 }
 
 @keyframes bg-gradient {
