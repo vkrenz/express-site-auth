@@ -7,6 +7,8 @@
 
 ##### User authentication handled via ***MongoDB***
 
+##### Link to Cyclic App: [Snap!](https://snap.cyclic.app)
+
 ```
 Pages:
 ---
