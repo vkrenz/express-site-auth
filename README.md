@@ -1,2 +1,4 @@
-## Seneca College WEB322 Assignment
-###### Using MongoDB for user authentication
+
+# Snap! Web Hosting
+
+##### Created using ***HTML/CSS***, ***Javascript***, ***Handlebars***
