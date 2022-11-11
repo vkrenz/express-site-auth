@@ -50,6 +50,10 @@ app.use('/user', user)
 const articles = require('./routes/articles')
 app.use('/articles', articles)
 
+// Blog Router Import
+const blog = require('./routes/blog')
+app.use('/blog', blog)
+
 // View Engine Setup
 app.set('view engine', '.hbs')
 app.set('views', __dirname + '/views/partials')
