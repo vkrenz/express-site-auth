@@ -19,6 +19,10 @@ Register: /user/register
 Login: /user/login
 ---
 Dashboard: /user/dash/username
+---
 
+Change Log
+==========
+11/11/22 - Assignment 4 complete
 ```
 
