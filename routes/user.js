@@ -5,28 +5,7 @@
  * ==> user registration
  * ==> user login
  * ==> user dashboard
- * 
- * TODO BY END OF THURSDAY...
- * --------
- * ==> Implement articles.js (done!)
- * ==> Implement a blog page
- * ==> Display "recommended articles" in user dash
- * 
- * @date ❄️ November 10, 2022 ❄️
- * @todo ==> Implement EXPRESS-SESSION
- * @todo ==> Change 'Users_Test' Collection ==> 'Users' in the User schema
- * @todo ==> Style user dashboard (almost done!)
- * Changelog
- * ==> Articles: Fully Working
- * ==> Fixed: passedUsername 
- * ==> Fixed: confirm_password
- * ==> Cleaned POST code up
- * ==> Login/Register works! 😃
- * ==> Made login form pretty
- * ==> User-doesn't-exist error links to pre-filled register
- * ==> User-already-exists error links to pre-filled login
- * ==> Made register form pretty
- * ==> Login page shows current userbase
+ * @date ❄️ November 11, 2022 ❄️
  */
 
 const router = require('express').Router()

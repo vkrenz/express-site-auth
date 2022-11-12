@@ -5,14 +5,7 @@
 * ==> The main server file for the app
 * ==> Handles the main route (/home)
 * ==> Handles all the general app settings
-* 
-*
 * @date ❄️ November 10, 2022 ❄️
-* @todo Implement scrollmagic.js
-* Changelog
-* ==> Declared static path
-* ==> Added a favicon.ico
-* ==> Index.css created in public dir
 */
 
 // Express settings
