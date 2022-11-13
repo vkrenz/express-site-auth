@@ -5,6 +5,8 @@
 
 ##### Created using ***HTML/CSS***, ***Javascript***, ***Handlebars***
 
+##### User authentication (register/login/dashboard) via ***MongoDB*** & ***Express-validator***
+
 ##### Link to Cyclic App: [Snap!](https://snap.cyclic.app)
 
 ```
