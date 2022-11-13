@@ -9,7 +9,7 @@
 
 ##### Link to Cyclic App: [Snap!](https://snap.cyclic.app)
 
-##### Update: see vkrenz/snap2 repo 
+##### Update (11/13/2022): see [vkrenz/snap2](https://github.com/vkrenz/snap2) repo 
 
 ```
 Pages:
