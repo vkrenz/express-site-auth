@@ -1,11 +1,9 @@
 
-# Snap! Web Hosting (Version 2)
+# Snap! Web Hosting
 
 ##### Seneca College ***WEB322 Assignment 5***
 
 ##### Created using ***HTML/CSS***, ***Javascript***, ***Handlebars***
-
-##### User administrator access via ***MongoDB***, ***Express-sessions***
 
 ##### Link to Cyclic App: [Snap!](https://snap.cyclic.app)
 
@@ -24,6 +22,5 @@ Dashboard: /user/dash/username
 Change Log
 ==========
 11/11/22 - Assignment 4 complete
-11/13/22 - Started Assignment 5
 ```
 
