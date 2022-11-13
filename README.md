@@ -1,7 +1,7 @@
 
 # Snap! Web Hosting
 
-##### Seneca College ***WEB322 Assignment 5***
+##### Seneca College ***WEB322 Assignment 4***
 
 ##### Created using ***HTML/CSS***, ***Javascript***, ***Handlebars***
 
