@@ -1,5 +1,5 @@
 
-# Snap! Web Hosting
+# Snap! Web Hosting (Outdated, see [vkrenz/snap2](https://github.com/vkrenz/snap2) repo)
 
 ##### Seneca College ***WEB322 Assignment 4***
 
