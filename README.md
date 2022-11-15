@@ -25,6 +25,6 @@ Dashboard: /user/dash/username
 
 Change Log
 ==========
-11/11/22 - Assignment 4 complete
+11/11/22 - Assignment 4 complete!
 ```
 
